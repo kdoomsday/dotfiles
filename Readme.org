@@ -1,0 +1,7 @@
+#+TITLE:Dotfiles
+Some dotfiles that I use.
+* Contents
+** .spacemacs
+   Spacemacs configuration (non macos).
+** .gitconfig
+   Because why not be lazy if you can.
