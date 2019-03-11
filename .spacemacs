@@ -487,6 +487,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq ensime-startup-notification nil)
+  (spacemacs/toggle-vi-tilde-fringe-off)
   (defun super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
