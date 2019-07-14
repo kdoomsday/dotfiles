@@ -5,3 +5,5 @@ Some dotfiles that I use.
    Spacemacs configuration (non macos).
 ** .gitconfig
    Because why not be lazy if you can.
+** [[file:~/.zshrc::#%20The%20following%20lines%20were%20added%20by%20compinstall][.zshrc]]
+   Prettier prompt for zsh
