@@ -26,15 +26,15 @@ This function should only modify configuration layer settings."
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
 
-   ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(html
-     windows-scripts
+   '(csv
+     yaml
+     html
      markdown
      shell-scripts
      ;; ----------------------------------------------------------------
@@ -74,8 +74,9 @@ This function should only modify configuration layer settings."
      tabs
      themes-megapack
      unicode-fonts
-     ;; spell-checking
-     ;; syntax-checking
+     (spell-checking :variables spell-checking-enable-by-default nil
+                     enable-flyspell-auto-completion t)
+     syntax-checking
      version-control
      windows-scripts
      auto-completion
@@ -220,6 +221,14 @@ It should only modify the values of Spacemacs settings."
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
 
+   ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
+   ;; *scratch* buffer will be saved and restored automatically.
+   dotspacemacs-scratch-buffer-persistent nil
+
+   ;; If non-nil, `kill-buffer' on *scratch* buffer
+   ;; will bury it instead of killing.
+   dotspacemacs-scratch-buffer-unkillable nil
+
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
    dotspacemacs-initial-scratch-message nil
@@ -228,7 +237,9 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+                         spacemacs-light
+                         doom-one-light
+                         madhat2r)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -249,29 +260,13 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
-   ;; quickly tweak the mode-line size to make separators look not too crappy.
-   ;; dotspacemacs-default-font '("Source Code Pro"
-   ;;                             :size 15
-   ;;                             :weight normal
-   ;;                             :width normal)
-   ;; dotspacemacs-default-font '("DejaVu Sans Mono"
-   ;;                             :size 15
-   ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.2)
-   ;; ;; dotspacemacs-default-font '("Fira Code Regular"
-   ;; ;;                             :size 16
-   ;; ;;                             :weight normal
-   ;; ;;                             :width normal)
+   ;; Default font or prioritized list of fonts. The `:size' can be specified as
+   ;; a non-negative integer (pixel size), or a floating-point (point size).
+   ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Fira Mono"
-                               :size 14
+                               :size 12.0
                                :weight normal
                                :width normal)
-   ;; dotspacemacs-default-font '("Fira Code Retina"
-   ;;                             :size 16
-   ;;                             :weight normal
-   ;;                             :width normal)
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -421,10 +416,11 @@ It should only modify the values of Spacemacs settings."
    ;;                       pdf-view-mode
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
+   ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
    dotspacemacs-line-numbers t
 
-   ;; Code folding method. Possible values are `evil' and `origami'.
+   ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
 
