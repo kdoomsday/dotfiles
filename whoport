@@ -1,0 +1,2 @@
+echo Find processes using port $1
+netstat -plnt | grep $1
