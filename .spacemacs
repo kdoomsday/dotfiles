@@ -58,11 +58,13 @@ This function should only modify configuration layer settings."
      ;; neotree
      logview
      multiple-cursors
-     treemacs
-     (org :variables org-enable-verb-support t)
-     ;; scala
-     (scala :variables scala-backend 'scala-metals)
-     ;; metals
+     (treemacs :variables
+               treemacs-use-scope-type 'Perspectives
+               treemacs-use-git-mode 'deferred)
+     (org :variables
+          org-enable-verb-support t)
+     (scala :variables
+            scala-backend 'scala-metals)
      python
      (shell :variables
             shell-default-height 30
@@ -74,7 +76,8 @@ This function should only modify configuration layer settings."
      tabs
      themes-megapack
      unicode-fonts
-     (spell-checking :variables spell-checking-enable-by-default nil
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      syntax-checking
      version-control
@@ -552,8 +555,9 @@ before packages are loaded."
   (defun super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
-    (spacemacs/toggle-maximize-buffer)
-    (treemacs-kill-buffer))
+    ;; (if (treemacs-current-visibility) (treemacs-kill-buffer))
+    (treemacs-kill-buffer)
+    (spacemacs/toggle-maximize-buffer))
 
   (defun maximize-first ()
     "Go to buffer 1 and maximize"
@@ -570,6 +574,13 @@ before packages are loaded."
   (setq winum-scope 'frame-local)
   (setq dired-listing-switches "-laDh --group-directories-first")
   (setq scroll-margin 10)
+
+  ;; Org mode tweaks
+  (setq org-capture-templates
+   '(("t" "Basic TODO" entry
+      (file+headline "/home/doomsday/code/deckInfo/Devel.org" "Issues")
+      "** TODO %?\n   :PROPERTIES:\n   :CREATED: %U\n   :END:" :jump-to-captured t)))
+  (setq org-startup-indented t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
