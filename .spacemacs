@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(csv
+   '(javascript
+     csv
      yaml
      html
      markdown
@@ -56,7 +57,7 @@ This function should only modify configuration layer settings."
      java
      ;; markdown
      ;; neotree
-     logview
+     ;; logview
      multiple-cursors
      (treemacs :variables
                treemacs-use-scope-type 'Perspectives
@@ -75,7 +76,7 @@ This function should only modify configuration layer settings."
      ;; centaur-tabs
      tabs
      themes-megapack
-     unicode-fonts
+     (unicode-fonts :variables unicode-fonts-enable-ligatures t)
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
@@ -210,7 +211,8 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
+   dotspacemacs-startup-lists '((bookmarks . 5)
+                                (recents . 5)
                                 (projects . 7))
 
    ;; True if the home buffer should respond to resize events. (default t)
@@ -266,8 +268,8 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Fira Mono"
-                               :size 12.0
+   dotspacemacs-default-font '("Fira Code"
+                               :size 11.0
                                :weight normal
                                :width normal)
 
@@ -569,6 +571,7 @@ before packages are loaded."
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
   (global-set-key (kbd "<f5>") 'maximize-first)
+  (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
 
   (setq winum-scope 'frame-local)
