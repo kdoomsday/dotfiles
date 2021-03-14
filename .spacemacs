@@ -69,7 +69,8 @@ This function should only modify configuration layer settings."
      python
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-term-shell "/usr/bin/zsh")
      ;; spotify
      sql
      ;; tabbar
