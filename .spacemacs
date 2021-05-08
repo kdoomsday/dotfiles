@@ -51,7 +51,8 @@ This function should only modify configuration layer settings."
      helm
      ;; better-defaults
      emacs-lisp
-     git
+     (git :variables git-enable-magit-gitflow-plugin t)
+     graphviz
      ;; lsp
      ;; (java :variables java-backend 'lsp)
      java
@@ -78,7 +79,7 @@ This function should only modify configuration layer settings."
      ;; centaur-tabs
      tabs
      themes-megapack
-     ;; (unicode-fonts :variables unicode-fonts-enable-ligatures t)
+     (unicode-fonts :variables unicode-fonts-enable-ligatures t)
      (spell-checking :variables
                      spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
@@ -592,9 +593,12 @@ before packages are loaded."
   (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
 
-  (setq winum-scope 'frame-local)
+  ;; (setq winum-scope 'frame-local)
   (setq dired-listing-switches "-laDh --group-directories-first")
-  (setq scroll-margin 10)
+  (setq scroll-margin 5)
+
+  ;; Change default terminal for terminal-here
+  (setq terminal-here-linux-terminal-command 'tilix)
 
   ;; Org mode tweaks
   (setq org-capture-templates
@@ -602,6 +606,18 @@ before packages are loaded."
       (file+headline "/home/doomsday/code/deckInfo/Devel.org" "Issues")
       "** TODO %?\n   :PROPERTIES:\n   :CREATED: %U\n   :END:" :jump-to-captured t)))
   (setq org-startup-indented t)
+
+  ;; Enable magit-gitflow
+  (setq-default dotspacemacs-configuration-layers
+                '((git :variables git-enable-magit-gitflow-plugin t)))
+
+  ;; Load verb as a babel language
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((verb . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -617,10 +633,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
+ '(magit-gitflow-release-finish-arguments '("--push"))
+ '(org-agenda-files '("~/Dropbox/Http4s.org" "~/Dropbox/Main.org"))
  '(package-selected-packages
-   (quote
-    (lsp-ui lsp-java flycheck-haskell company-lsp centaur-tabs xterm-color ws-butler winum which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit sql-indent spotify spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters pug-mode powershell popwin persp-mode pcre2el paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file noflet neotree multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum linum-relative link-hint intero flycheck insert-shebang indent-guide hydra hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-spotify-plus multi helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit ghub treepy graphql with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elisp-slime-nav dumb-jump f dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat diminish diff-hl define-word company-web web-completion-data company-statistics company-shell company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim s company-cabal company column-enforce-mode color-identifiers-mode dash cmm-mode clean-aindent-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
- '(tabbar-separator (quote (0.5))))
+   '(tern npm-mode nodejs-repl livid-mode skewer-mode js2-refactor multiple-cursors js2-mode js-doc import-js grizzl helm-gtags ggtags counsel-gtags counsel swiper ivy add-node-modules-path lsp-ui lsp-java flycheck-haskell company-lsp centaur-tabs xterm-color ws-butler winum which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit sql-indent spotify spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters pug-mode powershell popwin persp-mode pcre2el paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file noflet neotree multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum linum-relative link-hint intero flycheck insert-shebang indent-guide hydra hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-spotify-plus multi helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit ghub treepy graphql with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode elisp-slime-nav dumb-jump f dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat diminish diff-hl define-word company-web web-completion-data company-statistics company-shell company-ghci company-ghc ghc haskell-mode company-emacs-eclim eclim s company-cabal company column-enforce-mode color-identifiers-mode dash cmm-mode clean-aindent-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))
+ '(tabbar-separator '(0.5)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
