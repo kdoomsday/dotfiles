@@ -66,7 +66,8 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-verb-support t)
      (scala :variables
-            scala-backend 'scala-metals)
+            scala-backend 'scala-metals
+            scala-auto-insert-asterisk-in-comments t)
      python
      (shell :variables
             shell-default-height 30
