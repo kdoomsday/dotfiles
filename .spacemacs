@@ -51,7 +51,9 @@ This function should only modify configuration layer settings."
      helm
      ;; better-defaults
      emacs-lisp
-     (git :variables git-enable-magit-gitflow-plugin t)
+     (git :variables
+          git-enable-magit-gitflow-plugin t
+          git-enable-magit-delta-plugin t)
      graphviz
      ;; lsp
      ;; (java :variables java-backend 'lsp)
@@ -64,7 +66,8 @@ This function should only modify configuration layer settings."
                treemacs-use-scope-type 'Perspectives
                treemacs-use-git-mode 'deferred)
      (org :variables
-          org-enable-verb-support t)
+          org-enable-verb-support t
+          org-enable-roam-support t)
      (scala :variables
             scala-backend 'scala-metals
             scala-auto-insert-asterisk-in-comments t)
@@ -224,6 +227,12 @@ It should only modify the values of Spacemacs settings."
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
 
+   ;; Show numbers before the startup list lines. (default t)
+   dotspacemacs-show-startup-list-numbers t
+
+   ;; The minimum delay in seconds between number key presses. (default 0.4)
+   dotspacemacs-startup-buffer-multi-digit-delay 0.4
+
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
    ;; (default `text-mode')
@@ -262,10 +271,10 @@ It should only modify the values of Spacemacs settings."
    ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.9)
    ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
    ;; dotspacemacs-mode-line-theme '(vim-powerline)
-   dotspacemacs-mode-line-theme '(all-the-icons :separator arrow)
+   ;; dotspacemacs-mode-line-theme '(all-the-icons :separator arrow)
    ;; dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5 )
    ;; dotspacemacs-mode-line-theme '(all-the-icons)
-   ;; dotspacemacs-mode-line-theme '(doom)
+   dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -411,6 +420,10 @@ It should only modify the values of Spacemacs settings."
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
 
+   ;; Show the scroll bar while scrolling. The auto hide time can be configured
+   ;; by setting this variable to a number. (default t)
+   dotspacemacs-scroll-bar-while-scrolling t
+
    ;; Control line numbers activation.
    ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
    ;; `prog-mode' and `text-mode' derivatives. If set to `relative', line
@@ -517,6 +530,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-use-clean-aindent-mode t
 
+   ;; Accept SPC as y for prompts if non nil. (default nil)
+   dotspacemacs-use-SPC-as-y nil
+
    ;; If non-nil shift your number row to match the entered keyboard layout
    ;; (only in insert state). Currently supported keyboard layouts are:
    ;; `qwerty-us', `qwertz-de' and `querty-ca-fr'.
@@ -558,6 +574,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;               magit-diff-paint-whitespace t,
   ;;               magit-diff-paint-whitespace-lines 'all,
   ;;               magit-diff-refine-hunk t))
+  (setq org-roam-v2-ack t)
   (setq-default git-magit-status-fullscreen t))
 
 (defun dotspacemacs/user-load ()
@@ -577,7 +594,6 @@ before packages are loaded."
   (defun super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
-    ;; (if (treemacs-current-visibility) (treemacs-kill-buffer))
     (treemacs-kill-buffer)
     (spacemacs/toggle-maximize-buffer))
 
@@ -591,8 +607,26 @@ before packages are loaded."
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
   (global-set-key (kbd "<f5>") 'maximize-first)
+  (global-set-key (kbd "S-<escape>") 'maximize-first)
   (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
+  (global-set-key (kbd "C-<f6>") 'spacemacs/default-pop-shell)
+
+  ;; Scala bindings
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
+  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
+
+  ;; Org Roam
+  (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
+
+  ;; Mac like window switching
+  (global-set-key (kbd "s-1") 'winum-select-window-1)
+  (global-set-key (kbd "s-2") 'winum-select-window-2)
+  (global-set-key (kbd "s-3") 'winum-select-window-3)
+  (global-set-key (kbd "s-4") 'winum-select-window-4)
+  (global-set-key (kbd "s-5") 'winum-select-window-5)
+  (global-set-key (kbd "s-6") 'winum-select-window-6)
+  (global-set-key (kbd "s-7") 'winum-select-window-7)
+  (global-set-key (kbd "s-8") 'winum-select-window-8)
 
   ;; (setq winum-scope 'frame-local)
   (setq dired-listing-switches "-laDh --group-directories-first")
