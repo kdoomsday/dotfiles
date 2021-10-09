@@ -1,0 +1,41 @@
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+.project
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+/bin/
+
+# Ensime
+.ensime*
+
+# IntelliJ
+.idea/
+*.iml
+
+# Metals
+.metals
+.bloop/
+project/metals.sbt
+project/project
+.sbt-hydra-history
+.bsp
+
+# VS Code
+.vscode/
+
+# Archivo con notas para pruebas
+Devel.org
