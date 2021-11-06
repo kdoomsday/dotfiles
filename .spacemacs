@@ -659,6 +659,10 @@ before packages are loaded."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((shell . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)))
+  (setq org-babel-python-command "python3")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
