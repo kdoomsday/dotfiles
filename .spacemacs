@@ -649,19 +649,13 @@ before packages are loaded."
   (setq-default dotspacemacs-configuration-layers
                 '((git :variables git-enable-magit-gitflow-plugin t)))
 
-  ;; Load verb as a babel language
+  ;; Load babel languages
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((verb . t)))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((dot . t)))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((shell . t)))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)))
+   '((dot . t)
+     (python . t)
+     (shell . t)
+     (verb . t)))
   (setq org-babel-python-command "python3")
   )
 
