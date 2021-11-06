@@ -653,6 +653,9 @@ before packages are loaded."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((dot . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell . t)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
