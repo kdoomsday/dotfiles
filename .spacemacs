@@ -618,6 +618,9 @@ before packages are loaded."
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
 
+  ;; LSP General Bindings
+  (eval-after-load 'lsp-mode (define-key lsp-mode-map (kbd "s-w") 'lsp-extend-selection))
+
   ;; Org Roam
   (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
 
@@ -630,6 +633,8 @@ before packages are loaded."
   (global-set-key (kbd "s-6") 'winum-select-window-6)
   (global-set-key (kbd "s-7") 'winum-select-window-7)
   (global-set-key (kbd "s-8") 'winum-select-window-8)
+
+  (global-set-key (kbd "C-'") 'spacemacs/projectile-shell-pop)
 
   ;; (setq winum-scope 'frame-local)
   (setq dired-listing-switches "-laDh --group-directories-first")
