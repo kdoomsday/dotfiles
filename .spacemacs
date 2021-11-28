@@ -597,7 +597,7 @@ before packages are loaded."
   (defun super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
-    (treemacs-kill-buffer)
+    (if (boundp 'treemacs-kill-buffer) (treemacs-kill-buffer))
     (spacemacs/toggle-maximize-buffer))
 
   (defun maximize-first ()
