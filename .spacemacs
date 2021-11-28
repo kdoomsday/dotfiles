@@ -662,6 +662,9 @@ before packages are loaded."
      (shell . t)
      (verb . t)))
   (setq org-babel-python-command "python3")
+
+  ;; Fix error for tramp trying to open nonexistent file
+  (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
