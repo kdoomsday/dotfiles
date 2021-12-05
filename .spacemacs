@@ -619,7 +619,7 @@ before packages are loaded."
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
 
   ;; LSP General Bindings
-  (eval-after-load 'lsp-mode (define-key lsp-mode-map (kbd "s-w") 'lsp-extend-selection))
+  (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "s-w") 'lsp-extend-selection))
 
   ;; Org Roam
   (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
