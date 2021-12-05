@@ -34,6 +34,11 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(javascript
      csv
+     ;; compleseus
+     ;; helm
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t
+          ivy-enable-icons t)
      yaml
      html
      markdown
@@ -48,7 +53,6 @@ This function should only modify configuration layer settings."
      colors
      docker
      ;; haskell
-     helm
      ;; better-defaults
      emacs-lisp
      (git :variables
