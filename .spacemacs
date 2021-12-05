@@ -78,8 +78,9 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/usr/bin/zsh"
             ;; shell-default-shell 'vterm
             close-window-with-terminal t)
+     slack
      spacemacs-org
-     ;; spotify
+     spotify
      sql
      ;; tabbar
      ;; centaur-tabs
