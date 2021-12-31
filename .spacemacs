@@ -100,6 +100,7 @@ This function should only modify configuration layer settings."
                       version-control-diff-side 'left)
      windows-scripts
      auto-completion
+     xkcd
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -667,6 +668,8 @@ before packages are loaded."
      (shell . t)
      (verb . t)))
   (setq org-babel-python-command "python3")
+
+  (setq python-shell-interpreter "python3")
 
   ;; Fix error for tramp trying to open nonexistent file
   (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
