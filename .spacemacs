@@ -34,11 +34,11 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(javascript
      csv
-     ;; compleseus
+     compleseus
      ;; helm
-     (ivy :variables
-          ivy-enable-advanced-buffer-information t
-          ivy-enable-icons t)
+     ;; (ivy :variables
+     ;;      ivy-enable-advanced-buffer-information t
+     ;;      ivy-enable-icons t)
      yaml
      html
      markdown
