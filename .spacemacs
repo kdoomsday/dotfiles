@@ -671,6 +671,8 @@ before packages are loaded."
 
   (setq python-shell-interpreter "python3")
 
+  (pixel-scroll-mode)
+
   ;; Fix error for tramp trying to open nonexistent file
   (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
   )
