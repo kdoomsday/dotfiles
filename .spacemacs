@@ -626,6 +626,8 @@ before packages are loaded."
 
   ;; LSP General Bindings
   (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "s-w") 'lsp-extend-selection))
+  (global-set-key (kbd "<f2>") 'spacemacs/next-error)
+  (global-set-key (kbd "S-<f2>") 'spacemacs/previous-error)
 
   ;; Org Roam
   (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
@@ -673,8 +675,17 @@ before packages are loaded."
 
   (pixel-scroll-mode)
 
+  (global-set-key (kbd "C-{") 'spacemacs/tabs-backward)
+  (global-set-key (kbd "C-}") 'spacemacs/tabs-forward)
+
+  ;; Make selection to $ not include newline
+  (setq evil-want-visual-char-semi-exclusive 1)
+
   ;; Fix error for tramp trying to open nonexistent file
   (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
+
+  ;; Get org-download-screenshot working on Windows
+  (setq org-download-screenshot-method "/mnt/c/Users/kdoom/scoop/apps/imagemagick/current/convert.exe clipboard: %s")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
