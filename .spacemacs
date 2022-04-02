@@ -639,9 +639,11 @@ before packages are loaded."
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
 
   ;; LSP General Bindings
-  (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "s-w") 'lsp-extend-selection))
+  (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
   (global-set-key (kbd "<f2>") 'spacemacs/next-error)
   (global-set-key (kbd "S-<f2>") 'spacemacs/previous-error)
+  ;;  Auto show lsp ui documentation
+  (setq lsp-ui-doc-show-with-cursor t)
 
   ;; Org Roam
   (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
