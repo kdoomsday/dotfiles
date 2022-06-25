@@ -111,7 +111,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(beacon)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -715,6 +715,13 @@ before packages are loaded."
 
   ;; Get org-download-screenshot working on Windows
   (setq org-download-screenshot-method "/mnt/c/Users/kdoom/scoop/apps/imagemagick/current/convert.exe clipboard: %s")
+
+  ;; Put all undo tree files in a single place to avoid polluting directories
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+
+  (beacon-mode)
+  (setq beacon-blink-when-point-moves-vertically 1)
+  (setq beacon-blink-when-window-scrolls 1)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
