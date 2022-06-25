@@ -136,8 +136,8 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; If non-nil then enable support for the portable dumper. You'll need
-   ;; to compile Emacs 27 from source following the instructions in file
+   ;; If non-nil then enable support for the portable dumper. You'll need to
+   ;; compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
    ;;
    ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
@@ -214,6 +214,12 @@ It should only modify the values of Spacemacs settings."
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
 
+   ;; If non-nil, show vim-like empty line indicators at the end of files.
+   ;; Takes effect only if `spacemacs-evil' layer is enabled.
+   ;; NOTICE: `spacemacs-evil' is included in `spacemacs' distribution.
+   ;; See `dotspacemacs-distribution'.
+   dotspacemacs-evil-show-empty-line-indicators t
+
    ;; If non-nil show the version string in the Spacemacs buffer. It will
    ;; appear as (spacemacs version)@(emacs version)
    ;; (default t)
@@ -227,6 +233,13 @@ It should only modify the values of Spacemacs settings."
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner 'official
 
+   ;; Scale factor controls the scaling (size) of the startup banner. Default
+   ;; value is `auto' for scaling the logo automatically to fit all buffer
+   ;; contents, to a maximum of the full image height and a minimum of 3 line
+   ;; heights. If set to a number (int or float) it is used as a constant
+   ;; scaling factor for the default logo size.
+   dotspacemacs-startup-banner-scale 'auto
+
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -237,9 +250,8 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((projects . 7)
-                                (bookmarks . 5)
-                                (recents . 5))
+   dotspacemacs-startup-lists '((bookmarks . 5)
+                                (projects . 3))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -598,13 +610,18 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;               magit-diff-paint-whitespace-lines 'all,
   ;;               magit-diff-refine-hunk t))
   (setq org-roam-v2-ack t)
+
+  ;; Use in-Emacs passwords for GPG
+  ;; (setenv "GPG_AGENT_INFO" "/home/doomsday/bin/pinentry-emacs")
+
   (setq-default git-magit-status-fullscreen t))
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
-dump.")
+dump."
+)
 
 
 (defun dotspacemacs/user-config ()
@@ -613,7 +630,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (spacemacs/toggle-vi-tilde-fringe-off)
+  ;; (spacemacs/toggle-vi-tilde-fringe-off)
   (defun super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
@@ -673,10 +690,6 @@ before packages are loaded."
       (file+headline "/home/doomsday/code/deckInfo/Devel.org" "Issues")
       "** TODO %?\n   :PROPERTIES:\n   :CREATED: %U\n   :END:" :jump-to-captured t)))
   (setq org-startup-indented t)
-
-  ;; Enable magit-gitflow
-  (setq-default dotspacemacs-configuration-layers
-                '((git :variables git-enable-magit-gitflow-plugin t)))
 
   ;; Load babel languages
   (org-babel-do-load-languages
