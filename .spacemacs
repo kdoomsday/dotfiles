@@ -639,6 +639,13 @@ before packages are loaded."
     (winum-select-window-1)
     (super-maximize-buffer))
 
+  (defun win-copy-selected-text (start end)
+    "Copy selected region to Windows clipboard"
+    (interactive "r")
+    (if (use-region-p)
+        (let ((text (buffer-substring-no-properties start end)))
+          (shell-command (concat "echo '" text "' | clip.exe")))))
+
   (global-set-key (kbd "<f10>") 'super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
