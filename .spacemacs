@@ -214,12 +214,6 @@ It should only modify the values of Spacemacs settings."
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
 
-   ;; If non-nil, show vim-like empty line indicators at the end of files.
-   ;; Takes effect only if `spacemacs-evil' layer is enabled.
-   ;; NOTICE: `spacemacs-evil' is included in `spacemacs' distribution.
-   ;; See `dotspacemacs-distribution'.
-   dotspacemacs-evil-show-empty-line-indicators t
-
    ;; If non-nil show the version string in the Spacemacs buffer. It will
    ;; appear as (spacemacs version)@(emacs version)
    ;; (default t)
@@ -547,7 +541,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
 
-   ;; Show trailing whitespace (default t)
+   ;; Color highlight trailing whitespace in all prog-mode and text-mode derived
+   ;; modes such as c++-mode, python-mode, emacs-lisp, html-mode, rst-mode etc.
+   ;; (default t)
    dotspacemacs-show-trailing-whitespace t
 
    ;; Delete whitespace while saving buffer. Possible values are `all'
@@ -681,7 +677,7 @@ before packages are loaded."
   (setq dired-listing-switches "-laDh --group-directories-first")
   (setq scroll-margin 5)
 
-  ;; Change default terminal for terminal-here
+ ;; Change default terminal for terminal-here
   (setq terminal-here-linux-terminal-command 'tilix)
 
   ;; Org mode tweaks
@@ -702,7 +698,7 @@ before packages are loaded."
 
   (setq python-shell-interpreter "python3")
 
-  (pixel-scroll-mode)
+  (pixel-scroll-precision-mode)
 
   (global-set-key (kbd "C-{") 'spacemacs/tabs-backward)
   (global-set-key (kbd "C-}") 'spacemacs/tabs-forward)
