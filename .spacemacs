@@ -646,6 +646,16 @@ before packages are loaded."
         (let ((text (buffer-substring-no-properties start end)))
           (shell-command (concat "echo '" text "' | clip.exe")))))
 
+  (defun win-paste ()
+    "Paste from Windows clipboard"
+    (interactive)
+    (let ((clipboard
+           (shell-command-to-string "powershell.exe -command 'Get-Clipboard' 2> /dev/null")))
+      (setq clipboard (replace-regexp-in-string "\r" "" clipboard)) ; Remove ^M
+      (setq clipboard (substring clipboard 0 -1)) ; Remove newline added by Powershell
+      (insert clipboard)))
+
+
   (global-set-key (kbd "<f10>") 'super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
