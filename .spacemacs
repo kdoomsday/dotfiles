@@ -651,7 +651,8 @@ before packages are loaded."
     (interactive)
     (let ((clipboard
            (shell-command-to-string "powershell.exe -command 'Get-Clipboard' 2> /dev/null")))
-      (setq clipboard (replace-regexp-in-string "\r" "" clipboard)) ; Remove ^M
+      (setq clipboard (replace-regexp-in-string "\r\n" "\n" clipboard)) ; Remove ^M
+      (setq clipboard (replace-regexp-in-string "\r" "\n" clipboard)) ; Convert ^M into newline
       (setq clipboard (substring clipboard 0 -1)) ; Remove newline added by Powershell
       (insert clipboard)))
 
