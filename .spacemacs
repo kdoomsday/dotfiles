@@ -743,6 +743,7 @@ before packages are loaded."
   (add-hook 'org-mode-hook 'emojify-mode)
   (add-hook 'magit-mode-hook 'emojify-mode)
   (add-hook 'view-mode-hook 'emojify-mode)
+  (add-hook 'text-mode-hook 'emojify-mode)
 
   (beacon-mode)
   (setq beacon-blink-when-point-moves-vertically 1)
