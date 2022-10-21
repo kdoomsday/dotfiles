@@ -736,6 +736,13 @@ before packages are loaded."
   ;; Put all undo tree files in a single place to avoid polluting directories
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
+  ;; Enable auto-fill by default in org-mode
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+  ;; Emojify mode hooks
+  (add-hook 'org-mode-hook 'emojify-mode)
+  (add-hook 'magit-mode-hook 'emojify-mode)
+  (add-hook 'view-mode-hook 'emojify-mode)
+
   (beacon-mode)
   (setq beacon-blink-when-point-moves-vertically 1)
   (setq beacon-blink-when-window-scrolls 1)
