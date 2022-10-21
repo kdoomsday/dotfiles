@@ -32,13 +32,16 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript
-     csv
-     compleseus
+   '(
+     ;; Completion framework
+     ;; compleseus
      ;; helm
-     ;; (ivy :variables
-     ;;      ivy-enable-advanced-buffer-information t
-     ;;      ivy-enable-icons t)
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t
+          ivy-enable-icons t)
+
+     javascript
+     csv
      yaml
      html
      markdown
