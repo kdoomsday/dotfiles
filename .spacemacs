@@ -78,7 +78,8 @@ This function should only modify configuration layer settings."
      python
      (scala :variables
             scala-backend 'scala-metals
-            scala-auto-insert-asterisk-in-comments t)
+            scala-auto-insert-asterisk-in-comments t
+            lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
