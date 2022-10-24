@@ -748,6 +748,18 @@ before packages are loaded."
   (beacon-mode)
   (setq beacon-blink-when-point-moves-vertically 1)
   (setq beacon-blink-when-window-scrolls 1)
+
+  ;; Configure Ivy
+  (setq ivy-initial-inputs-alist '((counsel-minor . "^+")
+                                   (counsel-package . "^+")
+                                   (counsel-org-capture . "")
+                                   (counsel-M-x . "")
+                                   (counsel-describe-symbol . "")
+                                   (org-refile . "")
+                                   (org-agenda-refile . "")
+                                   (org-capture-refile . "")
+                                   (Man-completion-table . "")
+                                   (woman . "")))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
