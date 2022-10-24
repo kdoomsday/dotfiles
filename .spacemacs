@@ -672,6 +672,9 @@ before packages are loaded."
   ;; Scala bindings
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
+  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type))
+  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions))
+  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments))
 
   ;; LSP General Bindings
   (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
