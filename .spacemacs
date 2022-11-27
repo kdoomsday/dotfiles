@@ -669,6 +669,9 @@ before packages are loaded."
   (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
   (global-set-key (kbd "C-<f6>") 'spacemacs/default-pop-shell)
 
+  (global-set-key (kbd "C->") 'evil-numbers/inc-at-pt)
+  (global-set-key (kbd "C-<") 'evil-numbers/dec-at-pt)
+
   ;; Scala bindings
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
