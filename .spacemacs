@@ -685,6 +685,7 @@ before packages are loaded."
 
   ;; Org Roam
   (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
+  (org-roam-db-autosync-enable)
 
   ;; Mac like window switching
   (global-set-key (kbd "s-1") 'winum-select-window-1)
