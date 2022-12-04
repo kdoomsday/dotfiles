@@ -678,6 +678,10 @@ before packages are loaded."
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments))
+  ;; Fill column for scala mode
+  (defun fill-column-scala-mode-hook ()
+    (setq fill-column 100))
+  (add-hook 'scala-mode-hook 'fill-column-scala-mode-hook)
 
   ;; LSP General Bindings
   (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
