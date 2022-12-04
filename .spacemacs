@@ -683,6 +683,10 @@ before packages are loaded."
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments))
+  ;; Scala and SBT Mode SBT Hydra
+  (eval-after-load 'scala-mode '(define-key scala-mode-map (kbd "<f5>") 'sbt-hydra))
+  (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
+
   ;; Fill column for scala mode
   (defun fill-column-scala-mode-hook ()
     (setq fill-column 100))
