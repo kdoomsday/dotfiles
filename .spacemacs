@@ -669,7 +669,7 @@ before packages are loaded."
   (global-set-key (kbd "<f10>") 'super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
-  (global-set-key (kbd "<f5>") 'maximize-first)
+  ;; (global-set-key (kbd "<f5>") 'maximize-first)
   (global-set-key (kbd "S-<escape>") 'maximize-first)
   (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
   (global-set-key (kbd "C-<f6>") 'spacemacs/default-pop-shell)
