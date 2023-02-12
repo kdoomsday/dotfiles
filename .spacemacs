@@ -58,6 +58,7 @@ This function should only modify configuration layer settings."
      ;; haskell
      ;; better-defaults
      emacs-lisp
+     epub
      (git :variables
           git-enable-magit-gitflow-plugin t
           git-enable-magit-delta-plugin t)
@@ -102,7 +103,7 @@ This function should only modify configuration layer settings."
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
-                      version-control-diff-side 'left)
+                      version-control-diff-side 'right)
      windows-scripts
      auto-completion
      xkcd
@@ -685,6 +686,7 @@ before packages are loaded."
 
   ;; Scala bindings
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
+  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type))
   (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions))
