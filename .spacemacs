@@ -673,17 +673,26 @@ before packages are loaded."
       (setq clipboard (substring clipboard 0 -1)) ; Remove newline added by Powershell
       (insert clipboard)))
 
+  (defun my/makeCursorAtPoint (ev)
+    "Make a cursor at mouse point."
+    (interactive "e")
+    (let ((p1 (posn-point (event-start ev))))
+      (goto-char p1)
+      (evil-mc-make-cursor-here))
+    )
 
   (global-set-key (kbd "<f10>") 'super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
-  ;; (global-set-key (kbd "<f5>") 'maximize-first)
   (global-set-key (kbd "S-<escape>") 'maximize-first)
   (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
   (global-set-key (kbd "C-<f6>") 'spacemacs/default-pop-shell)
 
   (global-set-key (kbd "C->") 'evil-numbers/inc-at-pt)
   (global-set-key (kbd "C-<") 'evil-numbers/dec-at-pt)
+
+  ;; Multicursor with the mouse
+  (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
   ;; Scala bindings
   (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
