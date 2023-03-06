@@ -653,7 +653,7 @@ before packages are loaded."
   (defun maximize-first ()
     "Go to buffer 1 and maximize"
     (interactive)
-    (winum-select-window-1)
+    (select-window (frame-first-window))
     (super-maximize-buffer))
 
   (defun win-copy-selected-text (start end)
