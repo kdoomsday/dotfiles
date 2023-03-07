@@ -34,12 +34,11 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(
      ;; Completion framework
-     ;; compleseus
+     compleseus
      ;; helm
-     (ivy :variables
-          ivy-enable-advanced-buffer-information t
-          ivy-enable-icons t)
-
+     ;; (ivy :variables
+     ;;      ivy-enable-advanced-buffer-information t
+     ;;      ivy-enable-icons t)
      javascript
      csv
      yaml
@@ -638,7 +637,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (spacemacs/toggle-vi-tilde-fringe-off)
-  (defun super-maximize-buffer ()
+  (defun my/super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
     (cond ((not (fboundp 'treemacs-get-local-window)) (spacemacs/toggle-maximize-buffer))
@@ -650,11 +649,11 @@ before packages are loaded."
            (t (spacemacs/toggle-maximize-buffer))
           ))
 
-  (defun maximize-first ()
+  (defun my/maximize-first ()
     "Go to buffer 1 and maximize"
     (interactive)
     (select-window (frame-first-window))
-    (super-maximize-buffer))
+    (my/super-maximize-buffer))
 
   (defun win-copy-selected-text (start end)
     "Copy selected region to Windows clipboard"
@@ -681,10 +680,10 @@ before packages are loaded."
       (evil-mc-make-cursor-here))
     )
 
-  (global-set-key (kbd "<f10>") 'super-maximize-buffer)
+  (global-set-key (kbd "<f10>") 'my/super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
-  (global-set-key (kbd "S-<escape>") 'maximize-first)
+  (global-set-key (kbd "S-<escape>") 'my/maximize-first)
   (global-set-key (kbd "C-<f10>") 'centaur-tabs-mode)
   (global-set-key (kbd "C-<f6>") 'spacemacs/default-pop-shell)
 
@@ -695,31 +694,38 @@ before packages are loaded."
   (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
   ;; Scala bindings
-  (eval-after-load 'scala-mode'(define-key scala-mode-map [f8] 'lsp-treemacs-symbols))
-  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview))
-  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors))
-  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type))
-  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions))
-  (eval-after-load 'scala-mode'(define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments))
-  ;; Scala and SBT Mode SBT Hydra
-  (eval-after-load 'scala-mode '(define-key scala-mode-map (kbd "<f5>") 'sbt-hydra))
+  (eval-after-load 'scala-mode
+    (progn
+      '(define-key scala-mode-map [f8] 'lsp-treemacs-symbols)
+      '(define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
+      '(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors)
+      '(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type)
+      '(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
+      '(define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
+      '(define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
+      (when (configuration-layer/package-used-p 'consult)
+        (progn
+          ;; Consult keys
+          (spacemacs/declare-prefix-for-mode 'scala-mode "o" "consult")
+          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "os" 'consult-lsp-symbols)
+          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "of" 'consult-lsp-file-symbols)))
+      '(spacemacs/set-leader-keys-for-major-mode 'scala-mode "od" 'consult-lsp-diagnostics)
+      ))
+
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
 
   ;; Fill column for scala mode
-  (defun fill-column-scala-mode-hook ()
-    (setq fill-column 100))
-  (add-hook 'scala-mode-hook 'fill-column-scala-mode-hook)
+  ;; (defun fill-column-scala-mode-hook ()
+  ;;   (setq fill-column 100))
+  ;; (add-hook 'scala-mode-hook (lambda (setq fill-column 100)))
 
   ;; LSP General Bindings
   (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
+
   (global-set-key (kbd "<f2>") 'spacemacs/next-error)
   (global-set-key (kbd "S-<f2>") 'spacemacs/previous-error)
   ;;  Auto show lsp ui documentation
   (setq lsp-ui-doc-show-with-cursor t)
-
-  ;; Org Roam
-  (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
-  (org-roam-db-autosync-enable)
 
   ;; Mac like window switching
   (global-set-key (kbd "s-1") 'winum-select-window-1)
@@ -737,24 +743,9 @@ before packages are loaded."
   (setq dired-listing-switches "-laDh --group-directories-first")
   (setq scroll-margin 5)
 
- ;; Change default terminal for terminal-here
-  (setq terminal-here-linux-terminal-command 'tilix)
+  ;; Change default terminal for terminal-here
+  ;; (setq terminal-here-linux-terminal-command 'tilix)
 
-  ;; Org mode tweaks
-  (setq org-capture-templates
-   '(("t" "Basic TODO" entry
-      (file+headline "/home/doomsday/code/deckInfo/Devel.org" "Issues")
-      "** TODO %?\n   :PROPERTIES:\n   :CREATED: %U\n   :END:" :jump-to-captured t)))
-  (setq org-startup-indented t)
-
-  ;; Load babel languages
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((dot . t)
-     (python . t)
-     (shell . t)
-     (verb . t)))
-  (setq org-babel-python-command "python3")
 
   (setq python-shell-interpreter "python3")
 
@@ -778,7 +769,6 @@ before packages are loaded."
   ;; Enable auto-fill by default in org-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
   ;; Emojify mode hooks
-  (add-hook 'org-mode-hook 'emojify-mode)
   (add-hook 'magit-mode-hook 'emojify-mode)
   (add-hook 'view-mode-hook 'emojify-mode)
   (add-hook 'text-mode-hook 'emojify-mode)
@@ -787,17 +777,47 @@ before packages are loaded."
   (setq beacon-blink-when-point-moves-vertically 1)
   (setq beacon-blink-when-window-scrolls 1)
 
-  ;; Configure Ivy
-  (setq ivy-initial-inputs-alist '((counsel-minor . "^+")
-                                   (counsel-package . "^+")
-                                   (counsel-org-capture . "")
-                                   (counsel-M-x . "")
-                                   (counsel-describe-symbol . "")
-                                   (org-refile . "")
-                                   (org-agenda-refile . "")
-                                   (org-capture-refile . "")
-                                   (Man-completion-table . "")
-                                   (woman . "")))
+  ;; Configure Ivy if present
+  (when (configuration-layer/package-used-p 'ivy)
+    (setq ivy-initial-inputs-alist '((counsel-minor . "^+")
+                                     (counsel-package . "^+")
+                                     (counsel-org-capture . "")
+                                     (counsel-M-x . "")
+                                     (counsel-describe-symbol . "")
+                                     (org-refile . "")
+                                     (org-agenda-refile . "")
+                                     (org-capture-refile . "")
+                                     (Man-completion-table . "")
+                                     (woman . ""))))
+
+  ;; Configure org-mode
+  (with-eval-after-load 'org
+    (progn
+      ;; Get org-download-screenshot working on Windows
+      (setq org-download-screenshot-method "/mnt/c/Users/kdoom/scoop/apps/imagemagick/current/convert.exe clipboard: %s")
+      ;; Load babel languages
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((dot . t)
+         (python . t)
+         (shell . t)
+         (verb . t)
+         (emacs-lisp . t)))
+      (setq org-babel-python-command "python3")
+      (setq org-startup-indented t)
+
+      ;; Org mode tweaks
+      (setq org-capture-templates
+            '(("t" "Basic TODO" entry
+               (file+headline "/mnt/c/Users/kdoom/Dropbox/roam/20210821070005-active_todos.org" "Unsorted")
+               "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:" :jump-to-captured t)))
+
+      ;; Org Roam
+      (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
+      (org-roam-db-autosync-enable)
+
+      (add-hook 'org-mode-hook 'emojify-mode)
+      ))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
