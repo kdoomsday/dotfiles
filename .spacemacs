@@ -640,13 +640,13 @@ before packages are loaded."
   (defun my/super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
-    (cond ((not (fboundp 'treemacs-get-local-window)) (spacemacs/toggle-maximize-buffer))
-          ((and (treemacs-get-local-window) (cdr (winum--window-list)))
+    (cond ((not (fboundp 'treemacs-get-local-window)) (spacemacs/toggle-maximize-buffer)) ; If no treemacs, just maximize
+          ((and (treemacs-get-local-window) (cdr (winum--window-list)))                   ; If treemacs and other windows, delete treemacs and maximize
            (progn (delete-window (treemacs-get-local-window))
                   (spacemacs/toggle-maximize-buffer)))
-           ((treemacs-get-local-window)
+           ((treemacs-get-local-window)                                                   ; If just treemacs, delete it and do nothing else
             (delete-window (treemacs-get-local-window)))
-           (t (spacemacs/toggle-maximize-buffer))
+           (t (spacemacs/toggle-maximize-buffer))                                         ; Else, only toggle maximize
           ))
 
   (defun my/maximize-first ()
