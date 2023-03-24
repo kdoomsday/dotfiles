@@ -694,23 +694,26 @@ before packages are loaded."
   (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
   ;; Scala bindings
-  (eval-after-load 'scala-mode
+  (with-eval-after-load 'scala-mode
     (progn
-      '(define-key scala-mode-map [f8] 'lsp-treemacs-symbols)
-      '(define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
-      '(define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors)
-      '(define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type)
-      '(define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
-      '(define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
-      '(define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
-      (when (configuration-layer/package-used-p 'consult)
-        (progn
-          ;; Consult keys
-          (spacemacs/declare-prefix-for-mode 'scala-mode "o" "consult")
-          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "os" 'consult-lsp-symbols)
-          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "of" 'consult-lsp-file-symbols)))
-      '(spacemacs/set-leader-keys-for-major-mode 'scala-mode "od" 'consult-lsp-diagnostics)
-      ))
+       (define-key scala-mode-map [f8] 'lsp-treemacs-symbols)
+       (define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
+       (define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors)
+       (define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type)
+       (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
+       (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
+       (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
+       ))
+
+  (when (configuration-layer/package-used-p 'consult)
+    (with-eval-after-load 'scala-mode
+      (progn
+        ;; Consult keys
+        (spacemacs/declare-prefix-for-mode 'scala-mode "o" "consult")
+        (spacemacs/set-leader-keys-for-major-mode 'scala-mode "os" 'consult-lsp-symbols)
+        (spacemacs/set-leader-keys-for-major-mode 'scala-mode "of" 'consult-lsp-file-symbols)
+        (spacemacs/set-leader-keys-for-major-mode 'scala-mode "od" 'consult-lsp-diagnostics)
+        )))
 
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
 
