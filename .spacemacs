@@ -480,7 +480,8 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers (:t
+                              :disabled-for-modes org-mode)
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -818,9 +819,21 @@ before packages are loaded."
       ;; Org Roam
       (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
       (org-roam-db-autosync-enable)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode "rn" 'org-roam-dailies-goto-next-note)
+      (spacemacs/set-leader-keys-for-major-mode 'org-mode "rp" 'org-roam-dailies-goto-previous-note)
 
       (add-hook 'org-mode-hook 'emojify-mode)
       ))
+
+  ;; Roam backlink fixes
+  (global-page-break-lines-mode -1)
+  (defun display-line-numbers-customize ()
+	  (setq display-line-numbers 'visual))
+  (add-hook 'org-mode-hook 'display-line-numbers-customize)
+  (advice-add 'org-roam-buffer-persistent-redisplay :before
+			        (lambda () (remove-hook 'org-mode-hook 'display-line-numbers-customize)))
+  (advice-add 'org-roam-buffer-persistent-redisplay :after
+			        (lambda () (add-hook 'org-mode-hook 'display-line-numbers-customize)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
