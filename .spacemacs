@@ -63,18 +63,21 @@ This function should only modify configuration layer settings."
           git-enable-magit-delta-plugin t)
      graphviz
      ;; lsp
-     ;; (java :variables java-backend 'lsp)
-     java
+     (java :variables java-backend 'lsp)
+     ;; java
      ;; markdown
      ;; neotree
      ;; logview
      multiple-cursors
-     (treemacs :variables
-               treemacs-use-scope-type 'Perspectives
-               treemacs-use-git-mode 'deferred)
+     ;; (treemacs :variables
+     ;;           treemacs-use-scope-type 'Perspectives
+     ;;           treemacs-use-git-mode 'deferred)
+     treemacs
+     tree-sitter
      (org :variables
           org-enable-verb-support t
-          org-enable-roam-support t)
+          org-enable-roam-support t
+          org-enable-roam-ui t)
      python
      (scala :variables
             scala-backend 'scala-metals
@@ -116,7 +119,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(beacon)
+   dotspacemacs-additional-packages '(beacon tmr logview)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -250,7 +253,7 @@ It should only modify the values of Spacemacs settings."
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
    dotspacemacs-startup-lists '((bookmarks . 5)
-                                (projects . 3))
+                                (projects . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -289,10 +292,12 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(doom-one
+                         spacemacs-dark
                          spacemacs-light
                          doom-one-light
-                         madhat2r)
+                         madhat2r
+                         naquadah)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -480,8 +485,8 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers (:t
-                              :disabled-for-modes org-mode)
+   dotspacemacs-line-numbers '(:t
+                               :disabled-for-modes org-mode)
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
@@ -707,14 +712,26 @@ before packages are loaded."
        ))
 
   (when (configuration-layer/package-used-p 'consult)
-    (with-eval-after-load 'scala-mode
-      (progn
-        ;; Consult keys
-        (spacemacs/declare-prefix-for-mode 'scala-mode "o" "consult")
-        (spacemacs/set-leader-keys-for-major-mode 'scala-mode "os" 'consult-lsp-symbols)
-        (spacemacs/set-leader-keys-for-major-mode 'scala-mode "of" 'consult-lsp-file-symbols)
-        (spacemacs/set-leader-keys-for-major-mode 'scala-mode "od" 'consult-lsp-diagnostics)
-        )))
+    (progn
+      (with-eval-after-load 'scala-mode
+        (progn
+          ;; Consult keys
+          (spacemacs/declare-prefix-for-mode 'scala-mode "o" "consult")
+          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "os" 'consult-lsp-symbols)
+          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "of" 'consult-lsp-file-symbols)
+          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "od" 'consult-lsp-diagnostics)
+          ))
+      (add-hook 'embark-collect-mode-hook
+                (lambda()
+                  (define-key embark-collect-mode-map (kbd "M-t") 'embark-collect-toggle-marks)))
+      (spacemacs/set-leader-keys "hdm" 'describe-mode)
+      ))
+
+  ;; (when (configuration-layer/package-used-p 'consult)
+  ;;   (add-hook 'embark-collect-mode-hook
+  ;;             (lambda()
+  ;;               (define-key embark-collect-mode-map (kbd "M-t") 'embark-collect-toggle-marks)))
+  ;;   )
 
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
 
@@ -762,10 +779,7 @@ before packages are loaded."
   (setq evil-want-visual-char-semi-exclusive 1)
 
   ;; Fix error for tramp trying to open nonexistent file
-  (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
-
-  ;; Get org-download-screenshot working on Windows
-  (setq org-download-screenshot-method "/mnt/c/Users/kdoom/scoop/apps/imagemagick/current/convert.exe clipboard: %s")
+  ;; (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
 
   ;; Put all undo tree files in a single place to avoid polluting directories
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
@@ -773,9 +787,12 @@ before packages are loaded."
   ;; Enable auto-fill by default in org-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
   ;; Emojify mode hooks
-  (add-hook 'magit-mode-hook 'emojify-mode)
-  (add-hook 'view-mode-hook 'emojify-mode)
-  (add-hook 'text-mode-hook 'emojify-mode)
+  ;; (add-hook 'magit-mode-hook 'emojify-mode)
+  ;; (add-hook 'view-mode-hook 'emojify-mode)
+  ;; (add-hook 'text-mode-hook 'emojify-mode)
+  ;; (add-hook 'term-mode-hook 'emojify-mode)
+  ;; (add-hook 'centaur-tabs-mode-hook 'emojify-mode)
+  (global-emojify-mode)
 
   (beacon-mode)
   (setq beacon-blink-when-point-moves-vertically 1)
@@ -809,6 +826,7 @@ before packages are loaded."
          (emacs-lisp . t)))
       (setq org-babel-python-command "python3")
       (setq org-startup-indented t)
+      (setq org-startup-shrink-all-tables t)
 
       ;; Org mode tweaks
       (setq org-capture-templates
@@ -828,7 +846,7 @@ before packages are loaded."
   ;; Roam backlink fixes
   (global-page-break-lines-mode -1)
   (defun display-line-numbers-customize ()
-	  (setq display-line-numbers 'visual))
+	  (setq display-line-numbers 't))
   (add-hook 'org-mode-hook 'display-line-numbers-customize)
   (advice-add 'org-roam-buffer-persistent-redisplay :before
 			        (lambda () (remove-hook 'org-mode-hook 'display-line-numbers-customize)))
