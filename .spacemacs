@@ -27,18 +27,18 @@ This function should only modify configuration layer settings."
    dotspacemacs-ask-for-lazy-installation t
 
    ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
+   ;; Paths must have a trailing slash (i.e. "~/.mycontribs/")
    dotspacemacs-configuration-layer-path '()
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
      ;; Completion framework
-     compleseus
+     ;; compleseus
      ;; helm
-     ;; (ivy :variables
-     ;;      ivy-enable-advanced-buffer-information t
-     ;;      ivy-enable-icons t)
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t
+          ivy-enable-icons t)
      javascript
      csv
      yaml
@@ -54,20 +54,15 @@ This function should only modify configuration layer settings."
      ;;         colors-enable-nyan-cat-progress-bar (display-graphic-p))
      colors
      docker
+     ;; dtrt-indent ; Consider this one
      ;; haskell
-     ;; better-defaults
      emacs-lisp
      epub
      (git :variables
           git-enable-magit-gitflow-plugin t
           git-enable-magit-delta-plugin t)
      graphviz
-     ;; lsp
      (java :variables java-backend 'lsp)
-     ;; java
-     ;; markdown
-     ;; neotree
-     ;; logview
      multiple-cursors
      ;; (treemacs :variables
      ;;           treemacs-use-scope-type 'Perspectives
@@ -90,13 +85,11 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/usr/bin/zsh"
             ;; shell-default-shell 'vterm
             close-window-with-terminal t)
-     slack
      spacemacs-org
      spotify
      sql
-     ;; tabbar
-     ;; centaur-tabs
      tabs
+     terraform
      themes-megapack
      (unicode-fonts :variables unicode-fonts-enable-ligatures t)
      (spell-checking :variables
@@ -105,10 +98,16 @@ This function should only modify configuration layer settings."
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
-                      version-control-diff-side 'right)
+                      version-control-diff-side 'left)
      windows-scripts
      auto-completion
      xkcd
+     ;; My own layers
+     my-ellama
+     scala-extras
+     ;; tabbar
+     ;; centaur-tabs
+     ;; logview
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -307,12 +306,12 @@ It should only modify the values of Spacemacs settings."
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.9)
-   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.4)
    ;; dotspacemacs-mode-line-theme '(vim-powerline)
-   ;; dotspacemacs-mode-line-theme '(all-the-icons :separator arrow)
+   ;; dotspacemacs-mode-line-theme '(all-the-icons :separator arrow :separator-scale 1.2 :scale 1.1)
    ;; dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5 )
    ;; dotspacemacs-mode-line-theme '(all-the-icons)
-   dotspacemacs-mode-line-theme '(doom)
+   ;; dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -322,7 +321,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Fira Code"
-                               :size 12.0
+                               :size 11.0
                                :weight normal
                                :width normal)
 
@@ -686,6 +685,13 @@ before packages are loaded."
       (evil-mc-make-cursor-here))
     )
 
+  (defun my/autoping ()
+    "Ping www.google.com in a vterm"
+    (interactive)
+    (let ((bufname "Ping"))
+      (with-output-to-temp-buffer bufname
+        (start-process "ping" bufname "ping" "-c" "4" "www.google.com"))))
+
   (global-set-key (kbd "<f10>") 'my/super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
@@ -709,6 +715,7 @@ before packages are loaded."
        (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
        (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
        (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
+       (add-to-list 'auto-mode-alist '("\\.sc\\'" . scala-mode))
        ))
 
   (when (configuration-layer/package-used-p 'consult)
