@@ -57,6 +57,7 @@ This function should only modify configuration layer settings."
      ;; dtrt-indent ; Consider this one
      ;; haskell
      emacs-lisp
+     emoji
      epub
      (git :variables
           git-enable-magit-gitflow-plugin t
@@ -714,6 +715,7 @@ before packages are loaded."
   ;; Multicursor with the mouse
   (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
+  (add-to-list 'auto-mode-alist '("\\.sc\\'" . scala-mode))
   ;; Scala bindings
   (with-eval-after-load 'scala-mode
     (progn
@@ -724,7 +726,6 @@ before packages are loaded."
        (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
        (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
        (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
-       (add-to-list 'auto-mode-alist '("\\.sc\\'" . scala-mode))
        ))
 
   (when (configuration-layer/package-used-p 'consult)
@@ -775,6 +776,7 @@ before packages are loaded."
   (global-set-key (kbd "s-8") 'winum-select-window-8)
 
   (global-set-key (kbd "C-'") 'spacemacs/projectile-shell-pop)
+  (global-set-key (kbd "<f12>") 'spacemacs/projectile-shell-pop)
 
   ;; (setq winum-scope 'frame-local)
   (setq dired-listing-switches "-laDh --group-directories-first")
@@ -802,12 +804,6 @@ before packages are loaded."
 
   ;; Enable auto-fill by default in org-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
-  ;; Emojify mode hooks
-  ;; (add-hook 'magit-mode-hook 'emojify-mode)
-  ;; (add-hook 'view-mode-hook 'emojify-mode)
-  ;; (add-hook 'text-mode-hook 'emojify-mode)
-  ;; (add-hook 'term-mode-hook 'emojify-mode)
-  ;; (add-hook 'centaur-tabs-mode-hook 'emojify-mode)
   (global-emojify-mode)
 
   (beacon-mode)
@@ -855,8 +851,6 @@ before packages are loaded."
       (org-roam-db-autosync-enable)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rn" 'org-roam-dailies-goto-next-note)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rp" 'org-roam-dailies-goto-previous-note)
-
-      (add-hook 'org-mode-hook 'emojify-mode)
       ))
 
   ;; Roam backlink fixes
