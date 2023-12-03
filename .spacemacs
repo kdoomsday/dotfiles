@@ -692,6 +692,15 @@ before packages are loaded."
       (with-output-to-temp-buffer bufname
         (start-process "ping" bufname "ping" "-c" "4" "www.google.com"))))
 
+  (defvar browser-command "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+    "Browser for web calls")
+  (defun my/websearch ()
+    "Search in external web browser"
+    (interactive)
+      (if (use-region-p)
+          (call-process-region nil nil browser-command nil nil nil (concat "? " (buffer-substring (region-beginning) (region-end))))
+        (message "No region selected")))
+
   (global-set-key (kbd "<f10>") 'my/super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
   (global-set-key (kbd "<f7>") 'eyebrowse-prev-window-config)
