@@ -35,10 +35,11 @@ This function should only modify configuration layer settings."
    '(
      ;; Completion framework
      ;; compleseus
+     compleseus-plus
      ;; helm
-     (ivy :variables
-          ivy-enable-advanced-buffer-information t
-          ivy-enable-icons t)
+     ;; (ivy :variables
+     ;;      ivy-enable-advanced-buffer-information t
+     ;;      ivy-enable-icons t)
      javascript
      csv
      yaml
@@ -712,6 +713,11 @@ before packages are loaded."
   (global-set-key (kbd "C->") 'evil-numbers/inc-at-pt)
   (global-set-key (kbd "C-<") 'evil-numbers/dec-at-pt)
 
+  (global-set-key (kbd "C-SPC") 'company-complete)
+
+  ;; Compleseus configurations
+  (setq which-key-use-C-h-commands t) ;; Enable paging commands for which key
+
   ;; Multicursor with the mouse
   (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
@@ -728,34 +734,7 @@ before packages are loaded."
        (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
        ))
 
-  (when (configuration-layer/package-used-p 'consult)
-    (progn
-      (with-eval-after-load 'scala-mode
-        (progn
-          ;; Consult keys
-          (spacemacs/declare-prefix-for-mode 'scala-mode "o" "consult")
-          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "os" 'consult-lsp-symbols)
-          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "of" 'consult-lsp-file-symbols)
-          (spacemacs/set-leader-keys-for-major-mode 'scala-mode "od" 'consult-lsp-diagnostics)
-          ))
-      (add-hook 'embark-collect-mode-hook
-                (lambda()
-                  (define-key embark-collect-mode-map (kbd "M-t") 'embark-collect-toggle-marks)))
-      (spacemacs/set-leader-keys "hdm" 'describe-mode)
-      ))
-
-  ;; (when (configuration-layer/package-used-p 'consult)
-  ;;   (add-hook 'embark-collect-mode-hook
-  ;;             (lambda()
-  ;;               (define-key embark-collect-mode-map (kbd "M-t") 'embark-collect-toggle-marks)))
-  ;;   )
-
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
-
-  ;; Fill column for scala mode
-  ;; (defun fill-column-scala-mode-hook ()
-  ;;   (setq fill-column 100))
-  ;; (add-hook 'scala-mode-hook (lambda (setq fill-column 100)))
 
   ;; LSP General Bindings
   (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
@@ -764,16 +743,6 @@ before packages are loaded."
   (global-set-key (kbd "S-<f2>") 'spacemacs/previous-error)
   ;;  Auto show lsp ui documentation
   (setq lsp-ui-doc-show-with-cursor t)
-
-  ;; Mac like window switching
-  (global-set-key (kbd "s-1") 'winum-select-window-1)
-  (global-set-key (kbd "s-2") 'winum-select-window-2)
-  (global-set-key (kbd "s-3") 'winum-select-window-3)
-  (global-set-key (kbd "s-4") 'winum-select-window-4)
-  (global-set-key (kbd "s-5") 'winum-select-window-5)
-  (global-set-key (kbd "s-6") 'winum-select-window-6)
-  (global-set-key (kbd "s-7") 'winum-select-window-7)
-  (global-set-key (kbd "s-8") 'winum-select-window-8)
 
   (global-set-key (kbd "C-'") 'spacemacs/projectile-shell-pop)
   (global-set-key (kbd "<f12>") 'spacemacs/projectile-shell-pop)
@@ -794,7 +763,8 @@ before packages are loaded."
   (global-set-key (kbd "C-}") 'spacemacs/tabs-forward)
 
   ;; Make selection to $ not include newline
-  (setq evil-want-visual-char-semi-exclusive 1)
+  ;; (setq evil-want-visual-char-semi-exclusive 1)
+  (setq evil-v$-excludes-newline t)
 
   ;; Fix error for tramp trying to open nonexistent file
   ;; (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
@@ -809,19 +779,6 @@ before packages are loaded."
   (beacon-mode)
   (setq beacon-blink-when-point-moves-vertically 1)
   (setq beacon-blink-when-window-scrolls 1)
-
-  ;; Configure Ivy if present
-  (when (configuration-layer/package-used-p 'ivy)
-    (setq ivy-initial-inputs-alist '((counsel-minor . "^+")
-                                     (counsel-package . "^+")
-                                     (counsel-org-capture . "")
-                                     (counsel-M-x . "")
-                                     (counsel-describe-symbol . "")
-                                     (org-refile . "")
-                                     (org-agenda-refile . "")
-                                     (org-capture-refile . "")
-                                     (Man-completion-table . "")
-                                     (woman . ""))))
 
   ;; Configure org-mode
   (with-eval-after-load 'org
