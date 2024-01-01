@@ -33,6 +33,7 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     colors
      ;; Completion framework
      ;; compleseus
      compleseus-plus
@@ -40,12 +41,6 @@ This function should only modify configuration layer settings."
      ;; (ivy :variables
      ;;      ivy-enable-advanced-buffer-information t
      ;;      ivy-enable-icons t)
-     javascript
-     csv
-     yaml
-     html
-     markdown
-     shell-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -53,7 +48,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ;; (colors :variables
      ;;         colors-enable-nyan-cat-progress-bar (display-graphic-p))
-     colors
+     csv
      docker
      ;; dtrt-indent ; Consider this one
      ;; haskell
@@ -64,13 +59,14 @@ This function should only modify configuration layer settings."
           git-enable-magit-gitflow-plugin t
           git-enable-magit-delta-plugin t)
      graphviz
+     html
      (java :variables java-backend 'lsp)
+     javascript
+     markdown
      multiple-cursors
      ;; (treemacs :variables
      ;;           treemacs-use-scope-type 'Perspectives
      ;;           treemacs-use-git-mode 'deferred)
-     treemacs
-     tree-sitter
      (org :variables
           org-enable-verb-support t
           org-enable-roam-support t
@@ -87,12 +83,15 @@ This function should only modify configuration layer settings."
             shell-default-term-shell "/usr/bin/zsh"
             ;; shell-default-shell 'vterm
             close-window-with-terminal t)
+     shell-scripts
      spacemacs-org
      spotify
      sql
      tabs
      terraform
      themes-megapack
+     treemacs
+     tree-sitter
      (unicode-fonts :variables unicode-fonts-enable-ligatures t)
      (spell-checking :variables
                      spell-checking-enable-by-default nil
@@ -104,6 +103,8 @@ This function should only modify configuration layer settings."
      windows-scripts
      auto-completion
      xkcd
+     yaml
+
      ;; My own layers
      my-ellama
      scala-extras
