@@ -70,8 +70,10 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-verb-support t
           org-enable-roam-support t
-          org-enable-roam-ui t)
+          org-enable-roam-ui t
+          org-startup-folded t)
      python
+     react
      (scala :variables
             scala-backend 'scala-metals
             scala-auto-insert-asterisk-in-comments t
@@ -789,7 +791,8 @@ before packages are loaded."
       ;; Load babel languages
       (org-babel-do-load-languages
        'org-babel-load-languages
-       '((dot . t)
+       '((scala . t)
+         (dot . t)
          (python . t)
          (shell . t)
          (verb . t)
