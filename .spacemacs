@@ -613,7 +613,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -637,7 +637,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -654,9 +654,9 @@ before packages are loaded."
           ((and (treemacs-get-local-window) (cdr (winum--window-list)))                   ; If treemacs and other windows, delete treemacs and maximize
            (progn (delete-window (treemacs-get-local-window))
                   (spacemacs/toggle-maximize-buffer)))
-           ((treemacs-get-local-window)                                                   ; If just treemacs, delete it and do nothing else
-            (delete-window (treemacs-get-local-window)))
-           (t (spacemacs/toggle-maximize-buffer))                                         ; Else, only toggle maximize
+          ((treemacs-get-local-window)                                                   ; If just treemacs, delete it and do nothing else
+           (delete-window (treemacs-get-local-window)))
+          (t (spacemacs/toggle-maximize-buffer))                                         ; Else, only toggle maximize
           ))
 
   (defun my/maximize-first ()
@@ -702,9 +702,9 @@ before packages are loaded."
   (defun my/websearch ()
     "Search in external web browser"
     (interactive)
-      (if (use-region-p)
-          (call-process-region nil nil browser-command nil nil nil (concat "? " (buffer-substring (region-beginning) (region-end))))
-        (message "No region selected")))
+    (if (use-region-p)
+        (call-process-region nil nil browser-command nil nil nil (concat "? " (buffer-substring (region-beginning) (region-end))))
+      (message "No region selected")))
 
   (global-set-key (kbd "<f10>") 'my/super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
@@ -728,14 +728,14 @@ before packages are loaded."
   ;; Scala bindings
   (with-eval-after-load 'scala-mode
     (progn
-       (define-key scala-mode-map [f8] 'lsp-treemacs-symbols)
-       (define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
-       (define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors)
-       (define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type)
-       (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
-       (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
-       (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
-       ))
+      (define-key scala-mode-map [f8] 'lsp-treemacs-symbols)
+      (define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
+      (define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors)
+      (define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type)
+      (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
+      (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
+      (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
+      ))
 
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
 
@@ -800,6 +800,10 @@ before packages are loaded."
       (setq org-babel-python-command "python3")
       (setq org-startup-indented t)
       (setq org-startup-shrink-all-tables t)
+      (setq org-confirm-babel-evaluate nil)
+
+      ;; FIXES -- Remove if not needed anymore
+      (if (not (boundp 'completion-lazy-hilit)) (setq completion-lazy-hilit t))
 
       ;; Org mode tweaks
       (setq org-capture-templates
@@ -817,12 +821,12 @@ before packages are loaded."
   ;; Roam backlink fixes
   (global-page-break-lines-mode -1)
   (defun display-line-numbers-customize ()
-	  (setq display-line-numbers 't))
+    (setq display-line-numbers 't))
   (add-hook 'org-mode-hook 'display-line-numbers-customize)
   (advice-add 'org-roam-buffer-persistent-redisplay :before
-			        (lambda () (remove-hook 'org-mode-hook 'display-line-numbers-customize)))
+              (lambda () (remove-hook 'org-mode-hook 'display-line-numbers-customize)))
   (advice-add 'org-roam-buffer-persistent-redisplay :after
-			        (lambda () (add-hook 'org-mode-hook 'display-line-numbers-customize)))
+              (lambda () (add-hook 'org-mode-hook 'display-line-numbers-customize)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
