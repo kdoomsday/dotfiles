@@ -805,6 +805,8 @@ before packages are loaded."
   (setq beacon-blink-when-point-moves-vertically 1)
   (setq beacon-blink-when-window-scrolls 1)
 
+  (setq vc-follow-symlinks t)
+
   ;; Configure org-mode
   (with-eval-after-load 'org
     (progn
