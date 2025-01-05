@@ -425,6 +425,17 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-maximize-window-keep-side-windows t
 
+   ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
+   ;; put the most likely path on the top of `load-path' to reduce walking
+   ;; through the whole `load-path'. It's an experimental feature to speedup
+   ;; Spacemacs on Windows. Refer the FAQ.org "load-hints" session for details.
+   dotspacemacs-enable-load-hints nil
+
+   ;; If t, enable the `package-quickstart' feature to avoid full package
+   ;; loading, otherwise no `package-quickstart' attemption (default nil).
+   ;; Refer the FAQ.org "package-quickstart" section for details.
+   dotspacemacs-enable-package-quickstart nil
+
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
@@ -746,7 +757,7 @@ before packages are loaded."
   ;; Multicursor with the mouse
   (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
-  (add-to-list 'auto-mode-alist '("\\.sc\\'" . scala-mode))
+  (add-to-list 'auto-mode-alist '("\\.sc\\|.mill\\'" . scala-mode))
   ;; Scala bindings
   (with-eval-after-load 'scala-mode
     (progn
