@@ -850,6 +850,13 @@ before packages are loaded."
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rp" 'org-roam-dailies-goto-previous-note)
       ))
 
+  (with-eval-after-load 'treemacs
+    (treemacs-modify-theme (treemacs-current-theme)
+      :config
+      (progn
+        (treemacs-create-icon :file "scala.png" :fallback "" :extensions ("mill"))))
+    )
+
   ;; FIXES -- Remove if not needed anymore
   (if (not (boundp 'completion-lazy-hilit)) (setq completion-lazy-hilit t))
 
