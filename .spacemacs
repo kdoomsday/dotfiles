@@ -70,8 +70,7 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-verb-support t
           org-enable-roam-support t
-          org-enable-roam-ui t
-          org-startup-folded t)
+          org-enable-roam-ui t)
      python
      react
      (scala :variables
@@ -170,14 +169,6 @@ It should only modify the values of Spacemacs settings."
    ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
    ;; (default (format "spacemacs-%s.pdmp" emacs-version))
    dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
-
-   ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
-   ;; possible. Set it to nil if you have no way to use HTTPS in your
-   ;; environment, otherwise it is strongly recommended to let it set to t.
-   ;; This variable has no effect if Emacs is launched with the parameter
-   ;; `--insecure' which forces the value of this variable to nil.
-   ;; (default t)
-   dotspacemacs-elpa-https t
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -850,11 +841,23 @@ before packages are loaded."
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rp" 'org-roam-dailies-goto-previous-note)
       ))
 
+  ;; Roam backlink fixes
+  (global-page-break-lines-mode -1)
+
+  (defun display-line-numbers-customize ()
+    (setq display-line-numbers 't))
+  (add-hook 'org-mode-hook 'display-line-numbers-customize)
+  (advice-add 'org-roam-buffer-persistent-redisplay :before
+              (lambda () (remove-hook 'org-mode-hook 'display-line-numbers-customize)))
+  (advice-add 'org-roam-buffer-persistent-redisplay :after
+              (lambda () (add-hook 'org-mode-hook 'display-line-numbers-customize)))
+
+  ;; Add the Scala icon to .mill files
   (with-eval-after-load 'treemacs
     (treemacs-modify-theme (treemacs-current-theme)
-      :config
-      (progn
-        (treemacs-create-icon :file "scala.png" :fallback "" :extensions ("mill"))))
+                           :config
+                           (progn
+                             (treemacs-create-icon :file "scala.png" :fallback "" :extensions ("mill"))))
     )
 
   ;;====== Loop flycheck next/prev error
@@ -886,18 +889,8 @@ before packages are loaded."
 
   ;; FIXES -- Remove if not needed anymore
   (if (not (boundp 'completion-lazy-hilit)) (setq completion-lazy-hilit t))
-
-  ;; Roam backlink fixes
-  (global-page-break-lines-mode -1)
-
-  (defun display-line-numbers-customize ()
-    (setq display-line-numbers 't))
-  (add-hook 'org-mode-hook 'display-line-numbers-customize)
-  (advice-add 'org-roam-buffer-persistent-redisplay :before
-              (lambda () (remove-hook 'org-mode-hook 'display-line-numbers-customize)))
-  (advice-add 'org-roam-buffer-persistent-redisplay :after
-              (lambda () (add-hook 'org-mode-hook 'display-line-numbers-customize)))
   )
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
