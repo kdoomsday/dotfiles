@@ -107,7 +107,8 @@ This function should only modify configuration layer settings."
      yaml
 
      ;; My own layers
-     my-ellama
+     ;; my-ellama
+     compleseus-plus
      scala-extras
      ;; tabbar
      ;; centaur-tabs
@@ -260,7 +261,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
    ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
-   ;; This has no effect in terminal or if "all-the-icons" package or the font
+   ;; This has no effect in terminal or if "nerd-icons" package or the font
    ;; is not installed. (default nil)
    dotspacemacs-startup-buffer-show-icons t
 
@@ -855,9 +856,9 @@ before packages are loaded."
   ;; Add the Scala icon to .mill files
   (with-eval-after-load 'treemacs
     (treemacs-modify-theme (treemacs-current-theme)
-                           :config
-                           (progn
-                             (treemacs-create-icon :file "scala.png" :fallback "" :extensions ("mill"))))
+      :config
+      (progn
+        (treemacs-create-icon :file "scala.png" :fallback "" :extensions ("mill"))))
     )
 
   ;;====== Loop flycheck next/prev error
