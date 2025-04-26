@@ -53,7 +53,7 @@ This function should only modify configuration layer settings."
      ;; dtrt-indent ; Consider this one
      ;; haskell
      emacs-lisp
-     emoji
+     ;; emoji
      epub
      (git :variables
           git-enable-magit-gitflow-plugin t
@@ -722,13 +722,26 @@ before packages are loaded."
       (with-output-to-temp-buffer bufname
         (start-process "ping" bufname "ping" "-c" "4" "www.google.com"))))
 
-  (defvar browser-command "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+  ;; Web search functionality
+  (defcustom my/websearch-browser-command "xdg-open"
     "Browser for web calls")
+  (defcustom my/websearch-querystr "https://duckduckgo.com/?q="
+    "How to search. Will be concatted before the query string")
+
+  (defun escape-html (str)
+    (replace-regexp-in-string "&" "&amp;"
+                              (replace-regexp-in-string "<" "&lt;"
+                                                        (replace-regexp-in-string ">" "&gt;"
+                                                                                  (replace-regexp-in-string "\"" "&quot;"
+                                                                                                            (replace-regexp-in-string "'" "&#039;"
+                                                                                                                                      (replace-regexp-in-string " " "%20" str)))))))
+
   (defun my/websearch ()
     "Search in external web browser"
     (interactive)
     (if (use-region-p)
-        (call-process-region nil nil browser-command nil nil nil (concat "? " (buffer-substring (region-beginning) (region-end))))
+        (let* ((query-text (escape-html (buffer-substring (region-beginning) (region-end)))))
+          (call-process-region nil nil my/websearch-browser-command nil nil nil (concat my/websearch-querystr query-text)))
       (message "No region selected")))
 
   (global-set-key (kbd "<f10>") 'my/super-maximize-buffer)
@@ -773,7 +786,7 @@ before packages are loaded."
   (setq lsp-ui-doc-show-with-cursor t)
 
   (global-set-key (kbd "C-'") 'spacemacs/projectile-shell-pop)
-  (global-set-key (kbd "<f12>") 'spacemacs/projectile-shell-pop)
+  ;; (global-set-key (kbd "<f12>") 'spacemacs/projectile-shell-pop)
 
   ;; (setq winum-scope 'frame-local)
   (setq dired-listing-switches "-laDh --group-directories-first")
