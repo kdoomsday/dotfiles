@@ -248,8 +248,7 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((bookmarks . 5)
-                                (projects . 5))
+   dotspacemacs-startup-lists '((projects . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -287,7 +286,10 @@ It should only modify the values of Spacemacs settings."
 
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
-   ;; with 2 themes variants, one dark and one light)
+   ;; with 2 themes variants, one dark and one light). A theme from external
+   ;; package can be defined with `:package', or a theme can be defined with
+   ;; `:location' to download the theme package, refer the themes section in
+   ;; DOCUMENTATION.org for the full theme specifications.
    dotspacemacs-themes '(doom-one
                          spacemacs-dark
                          spacemacs-light
@@ -320,9 +322,12 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Fira Code"
-                               :size 11.0
+                               :size 10.0
                                :weight normal
                                :width normal)
+
+   ;; Default icons font, it can be `all-the-icons' or `nerd-icons'.
+   dotspacemacs-default-icons-font 'all-the-icons
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -343,10 +348,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key ","
 
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
+   ;; (default "C-M-m" for terminal mode, "M-<return>" for GUI mode).
    ;; Thus M-RET should work as leader key in both GUI and terminal modes.
    ;; C-M-m also should work in terminal mode, but not in GUI mode.
-   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
+   dotspacemacs-major-mode-emacs-leader-key (if window-system "M-<return>" "C-M-m")
 
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
