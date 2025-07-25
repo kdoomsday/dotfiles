@@ -32,11 +32,12 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(typescript
+     rust
+     toml
      colors
      ;; Completion framework
      ;; compleseus
-     compleseus-plus
      ;; helm
      ;; (ivy :variables
      ;;      ivy-enable-advanced-buffer-information t
@@ -62,7 +63,9 @@ This function should only modify configuration layer settings."
      html
      (java :variables java-backend 'lsp)
      javascript
+     llm-client
      markdown
+     mermaid
      multiple-cursors
      ;; (treemacs :variables
      ;;           treemacs-use-scope-type 'Perspectives
@@ -113,6 +116,8 @@ This function should only modify configuration layer settings."
      ;; tabbar
      ;; centaur-tabs
      ;; logview
+     ;; flyover
+     ollama-buddy
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -123,7 +128,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(beacon tmr logview)
+   dotspacemacs-additional-packages '(beacon tmr logview smithy-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -905,6 +910,8 @@ before packages are loaded."
 
   (advice-add 'flycheck-next-error :around #'flycheck-next-error-loop-advice)
   ;;====== End loop flycheck next/prev error
+
+  (setq ob-mermaid-cli-path "/home/doomsday/.nvm/versions/node/v16.20.2/bin/mmdc")
 
   ;; FIXES -- Remove if not needed anymore
   (if (not (boundp 'completion-lazy-hilit)) (setq completion-lazy-hilit t))
