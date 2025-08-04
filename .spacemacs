@@ -825,7 +825,7 @@ before packages are loaded."
 
   ;; Enable auto-fill by default in org-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
-  (global-emojify-mode)
+  ;; (global-emojify-mode)
 
   (beacon-mode)
   (setq beacon-blink-when-point-moves-vertically 1)
