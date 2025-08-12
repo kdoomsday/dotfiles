@@ -2,8 +2,17 @@
 Some dotfiles that I use.
 * Contents
 ** .spacemacs
-   Spacemacs configuration (non macos).
+Spacemacs configuration (non macos).
 ** .gitconfig
-   Because why not be lazy if you can.
+Because why not be lazy if you can.
 ** [[file:~/.zshrc::#%20The%20following%20lines%20were%20added%20by%20compinstall][.zshrc]]
-   Prettier prompt for zsh
+Prettier prompt for zsh
+** mill-dir-locals.el
+Rename to ~.dir-locals.el~ in a project
+
+Default dir-locals for a mill project, so we have compilation, test, etc.
+commands ready.
+
+** mill-opts
+Rename to ~.mill-opts~
+Default options to pass to Mill when running.
