@@ -788,7 +788,12 @@ before packages are loaded."
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
 
   ;; LSP General Bindings
-  (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
+  (with-eval-after-load 'lsp-mode
+    (progn
+      (define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection)
+      (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]out\\'")
+      ))
+  ;; (eval-after-load 'lsp-mode '(define-key lsp-mode-map (kbd "C-S-w") 'lsp-extend-selection))
 
   (global-set-key (kbd "<f2>") 'spacemacs/next-error)
   (global-set-key (kbd "S-<f2>") 'spacemacs/previous-error)
