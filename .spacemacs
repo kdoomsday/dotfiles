@@ -861,7 +861,10 @@ before packages are loaded."
       (setq org-capture-templates
             '(("t" "Basic TODO" entry
                (file+headline "/mnt/c/Users/kdoom/Dropbox/roam/20210821070005-active_todos.org" "Unsorted")
-               "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:" :jump-to-captured t)))
+               "** TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:" :jump-to-captured t)
+              ("w" "Walkerapp TODO" entry
+               (file+olp "/mnt/c/Users/kdoom/Dropbox/roam/20210821070005-active_todos.org" "Code" "Walker")
+               "** TODO %? :WalkerApp:\n:PROPERTIES:\n:CREATED: %U\n:END:")))
 
       ;; Org Roam
       (setq org-roam-directory (file-truename "/home/doomsday/Dropbox/roam/"))
