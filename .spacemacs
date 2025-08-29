@@ -542,7 +542,7 @@ It should only modify the values of Spacemacs settings."
    ;; Note that saved undo history does not get transferred when changing
    ;; your undo system. The default is currently `undo-fu' as `undo-tree'
    ;; is not maintained anymore and `undo-redo' is very basic."
-   dotspacemacs-undo-system 'undo-tree
+   dotspacemacs-undo-system 'undo-fu
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -801,9 +801,6 @@ before packages are loaded."
 
   ;; Fix error for tramp trying to open nonexistent file
   ;; (with-eval-after-load 'tramp-archive (setq tramp-archive-enabled nil))
-
-  ;; Put all undo tree files in a single place to avoid polluting directories
-  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
   ;; Enable auto-fill by default in org-mode
   (add-hook 'org-mode-hook 'auto-fill-mode)
