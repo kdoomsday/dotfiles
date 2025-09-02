@@ -845,6 +845,9 @@ before packages are loaded."
       (org-roam-db-autosync-enable)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rn" 'org-roam-dailies-goto-next-note)
       (spacemacs/set-leader-keys-for-major-mode 'org-mode "rp" 'org-roam-dailies-goto-previous-note)
+
+      ;; Easier refiling within the file
+      (setq org-refile-targets '((nil :maxlevel . 3)))
       ))
 
   ;; Roam backlink fixes
