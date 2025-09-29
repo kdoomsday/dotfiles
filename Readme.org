@@ -16,3 +16,6 @@ commands ready.
 ** mill-opts
 Rename to ~.mill-opts~
 Default options to pass to Mill when running.
+
+** .gitignore
+Default gitignore file for Scala projects

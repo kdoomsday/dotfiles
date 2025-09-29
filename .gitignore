@@ -1,7 +1,7 @@
 *.class
 *.log
 
-# sbt specific
+# SBT specific
 .cache
 .history
 .lib/
@@ -13,6 +13,9 @@ project/boot/
 project/plugins/project/
 
 .project
+
+# Mill specific
+out/
 
 # Scala-IDE specific
 .scala_dependencies
@@ -39,3 +42,6 @@ project/project
 
 # Archivo con notas para pruebas
 Devel.org
+
+# Emacs
+.projectile
