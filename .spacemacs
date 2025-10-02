@@ -128,7 +128,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(beacon tmr logview smithy-mode)
+   dotspacemacs-additional-packages '(beacon tmr logview smithy-mode exec-path-from-shell)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -533,9 +533,9 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-persistent-server nil
 
    ;; List of search tool executable names. Spacemacs uses the first installed
-   ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
-   ;; (default '("rg" "ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   ;; tool of the list. Supported tools are `rg', `ag', `ack' and `grep'.
+   ;; (default '("rg" "ag" "ack" "grep"))
+   dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
 
    ;; The backend used for undo/redo functionality. Possible values are
    ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
@@ -643,14 +643,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; (setenv "GPG_AGENT_INFO" "/home/doomsday/bin/pinentry-emacs")
 
   (setq-default git-magit-status-fullscreen t))
-
-(defun dotspacemacs/user-load ()
-  "Library to load while dumping.
-This function is called only while dumping Spacemacs configuration. You can
-`require' or `load' the libraries of your choice that will be included in the
-dump."
-  )
-
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -825,6 +817,7 @@ before packages are loaded."
          (python . t)
          (shell . t)
          (verb . t)
+         (sql . t)
          (emacs-lisp . t)))
       (setq org-babel-python-command "python3")
       (setq org-startup-indented t)
@@ -896,10 +889,16 @@ before packages are loaded."
   (advice-add 'flycheck-next-error :around #'flycheck-next-error-loop-advice)
   ;;====== End loop flycheck next/prev error
 
-  (setq ob-mermaid-cli-path "/home/doomsday/.nvm/versions/node/v16.20.2/bin/mmdc")
+  (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
 
-  ;; FIXES -- Remove if not needed anymore
-  (if (not (boundp 'completion-lazy-hilit)) (setq completion-lazy-hilit t))
+  (setq vundo-glyph-alist vundo-unicode-symbols)
+
+  ;; Enable mouse click on diff markers
+  (setq global-diff-hl-show-hunk-mouse-mode t)
+
+  ;; Initialize exec-path-from-shell to get PATH variables
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
   )
 
 
