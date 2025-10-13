@@ -902,10 +902,17 @@ before packages are loaded."
 
 
   ;; Docker usability improvements
-  (keymap-set docker-image-mode-map "r" 'docker-image-ls)
-  (keymap-set docker-container-mode-map "r" 'docker-container-ls)
-  (add-hook 'docker-container-mode-hook (lambda () (keymap-unset evil-motion-state-map "!")))
-  (keymap-set docker-container-mode-map "!" 'docker-container-shell)
+  (add-hook 'docker-container-mode-hook (lambda ()
+                                          (progn
+                                            (keymap-unset evil-motion-state-map "!")
+                                            (keymap-unset evil-motion-state-map "L")
+                                            (keymap-unset evil-motion-state-map "l")
+                                            (keymap-unset evil-motion-state-map "b")
+                                            )))
+  (add-hook 'docker-image-mode-hook (lambda ()
+                                      (progn
+                                        (keymap-unset evil-motion-state-map "l")
+                                        )))
   )
 
 
