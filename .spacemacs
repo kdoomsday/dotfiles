@@ -899,6 +899,13 @@ before packages are loaded."
   ;; Initialize exec-path-from-shell to get PATH variables
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
+
+
+  ;; Docker usability improvements
+  (keymap-set docker-image-mode-map "r" 'docker-image-ls)
+  (keymap-set docker-container-mode-map "r" 'docker-container-ls)
+  (add-hook 'docker-container-mode-hook (lambda () (keymap-unset evil-motion-state-map "!")))
+  (keymap-set docker-container-mode-map "!" 'docker-container-shell)
   )
 
 
