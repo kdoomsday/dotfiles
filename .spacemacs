@@ -894,22 +894,8 @@ before packages are loaded."
   (setq global-diff-hl-show-hunk-mouse-mode t)
 
   ;; Initialize exec-path-from-shell to get PATH variables
-  (when (memq window-system '(mac ns x))
+  (when (memq window-system '(mac ns x pgtk))
     (exec-path-from-shell-initialize))
-
-
-  ;; Docker usability improvements
-  (add-hook 'docker-container-mode-hook (lambda ()
-                                          (progn
-                                            (keymap-unset evil-motion-state-map "!")
-                                            (keymap-unset evil-motion-state-map "L")
-                                            (keymap-unset evil-motion-state-map "l")
-                                            (keymap-unset evil-motion-state-map "b")
-                                            )))
-  (add-hook 'docker-image-mode-hook (lambda ()
-                                      (progn
-                                        (keymap-unset evil-motion-state-map "l")
-                                        )))
   )
 
 
