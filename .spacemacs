@@ -843,9 +843,6 @@ before packages are loaded."
       (setq org-refile-targets '((nil :maxlevel . 3)))
       ))
 
-  ;; Roam backlink fixes
-  (global-page-break-lines-mode -1)
-
   (defun display-line-numbers-customize ()
     (setq display-line-numbers 't))
   (add-hook 'org-mode-hook 'display-line-numbers-customize)
