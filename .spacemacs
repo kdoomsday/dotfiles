@@ -117,7 +117,7 @@ This function should only modify configuration layer settings."
      ;; centaur-tabs
      ;; logview
      ;; flyover
-     ollama-buddy
+     ;; ollama-buddy
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -399,6 +399,14 @@ It should only modify the values of Spacemacs settings."
    ;; displayed in the current window. (default nil)
    dotspacemacs-switch-to-buffer-prefers-purpose nil
 
+   ;; Make consecutive tab key presses after commands such as
+   ;; `spacemacs/alternate-buffer' (SPC TAB) cycle through previous
+   ;; buffers/windows/etc. Please see the option's docstring for more information.
+   ;; Set the option to t in order to enable cycling for all current and
+   ;; future cycling commands. Alternatively, choose a subset of the currently
+   ;; supported commands: '(alternate-buffer alternate-window). (default nil)
+   dotspacemacs-enable-cycling nil
+
    ;; Whether side windows (such as those created by treemacs or neotree)
    ;; are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m).
    ;; (default t)
@@ -540,9 +548,8 @@ It should only modify the values of Spacemacs settings."
    ;; The backend used for undo/redo functionality. Possible values are
    ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
    ;; Note that saved undo history does not get transferred when changing
-   ;; your undo system. The default is currently `undo-fu' as `undo-tree'
-   ;; is not maintained anymore and `undo-redo' is very basic."
-   dotspacemacs-undo-system 'undo-fu
+   ;; your undo system from or to undo-tree. (default `undo-redo')"
+   dotspacemacs-undo-system 'undo-redo
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -843,9 +850,6 @@ before packages are loaded."
       (setq org-refile-targets '((nil :maxlevel . 3)))
       ))
 
-  ;; Roam backlink fixes
-  (global-page-break-lines-mode -1)
-
   (defun display-line-numbers-customize ()
     (setq display-line-numbers 't))
   (add-hook 'org-mode-hook 'display-line-numbers-customize)
@@ -897,22 +901,8 @@ before packages are loaded."
   (setq global-diff-hl-show-hunk-mouse-mode t)
 
   ;; Initialize exec-path-from-shell to get PATH variables
-  (when (memq window-system '(mac ns x))
+  (when (memq window-system '(mac ns x pgtk))
     (exec-path-from-shell-initialize))
-
-
-  ;; Docker usability improvements
-  (add-hook 'docker-container-mode-hook (lambda ()
-                                          (progn
-                                            (keymap-unset evil-motion-state-map "!")
-                                            (keymap-unset evil-motion-state-map "L")
-                                            (keymap-unset evil-motion-state-map "l")
-                                            (keymap-unset evil-motion-state-map "b")
-                                            )))
-  (add-hook 'docker-image-mode-hook (lambda ()
-                                      (progn
-                                        (keymap-unset evil-motion-state-map "l")
-                                        )))
   )
 
 
