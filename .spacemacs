@@ -754,10 +754,11 @@ before packages are loaded."
     (progn
       (define-key scala-mode-map [f8] 'lsp-treemacs-symbols)
       (define-key scala-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
+      (define-key scala-mode-map (kbd "C-<f8>") 'lsp-metals-doctor-run)
       (define-key scala-mode-map (kbd "C-M-e") 'flycheck-list-errors)
-      (define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-show-inferred-type)
-      (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-show-implicit-conversions)
-      (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-show-implicit-arguments)
+      (define-key scala-mode-map (kbd "C-M-t") 'lsp-metals-toggle-inlay-hints-enable-inferred-types)
+      (define-key scala-mode-map (kbd "C-M-i") 'lsp-metals-toggle-inlay-hints-enable-implicit-conversions)
+      (define-key scala-mode-map (kbd "C-M-a") 'lsp-metals-toggle-inlay-hints-enable-implicit-arguments)
       (define-key scala-mode-map (kbd "<f5>") 'sbt-hydra)
       ))
 
