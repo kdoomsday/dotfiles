@@ -287,12 +287,12 @@ It should only modify the values of Spacemacs settings."
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.9)
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.4)
+   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.4)
    ;; dotspacemacs-mode-line-theme '(vim-powerline)
    ;; dotspacemacs-mode-line-theme '(all-the-icons :separator arrow :separator-scale 1.2 :scale 1.1)
    ;; dotspacemacs-mode-line-theme '(all-the-icons :separator-scale 1.5 )
    ;; dotspacemacs-mode-line-theme '(all-the-icons)
-   ;; dotspacemacs-mode-line-theme '(doom)
+   dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
