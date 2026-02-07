@@ -105,8 +105,9 @@ This function should only modify configuration layer settings."
                       version-control-diff-tool 'diff-hl
                       version-control-diff-side 'left)
      windows-scripts
-     auto-completion
-     xkcd
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip 'manual)
+     ;; xkcd
      yaml
 
      ;; My own layers
@@ -751,8 +752,9 @@ before packages are loaded."
   ;; Use scala-ts-mode instead of scala-mode
   ;; TODO This is wrong because it happens after scala-mode and I need it before
   (with-eval-after-load 'scala-mode
-    (setq auto-mode-alist (rassq-delete-all 'scala-mode auto-mode-alist))
-    (add-to-list 'auto-mode-alist '("\\.mill" . scala-ts-mode)))
+    (setq auto-mode-alist (rassq-delete-all 'scala-mode auto-mode-alist)))
+
+  (add-to-list 'auto-mode-alist '("\\.mill" . scala-ts-mode))
 
   ;; Scala bindings
   (with-eval-after-load 'scala-ts-mode
@@ -923,6 +925,14 @@ before packages are loaded."
   ;; Initialize exec-path-from-shell to get PATH variables
   (when (memq window-system '(mac ns x pgtk))
     (exec-path-from-shell-initialize))
+
+
+  ;; Fix ANSI colors in current buffer
+  ;; Workaround while I figure out a way to make it automatic
+  (defun my/fix-ansi ()
+    "Apply ANSI colors to the *Org Babel Error Output* buffer."
+    (interactive)
+    (ansi-color-apply-on-region (point-min) (point-max) t))
   )
 
 
