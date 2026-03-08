@@ -658,7 +658,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (spacemacs/toggle-vi-tilde-fringe-off)
+
   (defun my/super-maximize-buffer ()
     "Maximize buffer and close treemacs, if necessary"
     (interactive)
@@ -727,9 +727,15 @@ before packages are loaded."
     "Search in external web browser"
     (interactive)
     (if (use-region-p)
-        (let* ((query-text (escape-html (buffer-substring (region-beginning) (region-end)))))
-          (call-process-region nil nil my/websearch-browser-command nil nil nil (concat my/websearch-querystr query-text)))
+        ;; (let* ((query-text (escape-html (buffer-substring (region-beginning) (region-end)))))
+        (let* ((query-text (escape-html (buffer-substring-no-properties (use-region-beginning) (use-region-end))))
+               (fullquery (concat my/websearch-querystr query-text)))
+          (call-process my/websearch-browser-command nil nil nil fullquery))
       (message "No region selected")))
+
+  ;; Simple configurations
+  (spacemacs/toggle-vi-tilde-fringe-off)
+  (treemacs-resize-icons 16)
 
   (global-set-key (kbd "<f10>") 'my/super-maximize-buffer)
   (global-set-key (kbd "<f9>") 'eyebrowse-next-window-config)
