@@ -85,7 +85,7 @@ This function should only modify configuration layer settings."
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-term-shell "/usr/bin/zsh"
-            ;; shell-default-shell 'vterm
+            shell-default-shell 'vterm
             close-window-with-terminal t)
      shell-scripts
      spacemacs-org
