@@ -129,7 +129,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(scala-ts-mode beacon tmr logview smithy-mode exec-path-from-shell)
+   dotspacemacs-additional-packages '(beacon tmr logview smithy-mode exec-path-from-shell)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -547,7 +547,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
 
    ;; The backend used for undo/redo functionality. Possible values are
-   ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
+   ;; `undo-redo', `undo-fu' and `undo-tree' see also `evil-undo-system'.
    ;; Note that saved undo history does not get transferred when changing
    ;; your undo system from or to undo-tree. (default `undo-redo')"
    dotspacemacs-undo-system 'undo-redo
@@ -760,12 +760,9 @@ before packages are loaded."
   (with-eval-after-load 'scala-mode
     (setq auto-mode-alist (rassq-delete-all 'scala-mode auto-mode-alist)))
 
-  (add-to-list 'auto-mode-alist '("\\.mill" . scala-ts-mode))
-
   ;; Scala bindings
   (with-eval-after-load 'scala-ts-mode
     (progn
-      (setopt treesit-font-lock-level 4)
       (define-key scala-ts-mode-map [f8] 'lsp-treemacs-symbols)
       (define-key scala-ts-mode-map (kbd "S-<f8>") 'lsp-metals-treeview)
       (define-key scala-ts-mode-map (kbd "C-<f8>") 'lsp-metals-doctor-run)
@@ -774,19 +771,6 @@ before packages are loaded."
       (define-key scala-ts-mode-map (kbd "C-M-i") 'lsp-metals-toggle-inlay-hints-enable-implicit-conversions)
       (define-key scala-ts-mode-map (kbd "C-M-a") 'lsp-metals-toggle-inlay-hints-enable-implicit-arguments)
       (define-key scala-ts-mode-map (kbd "<f5>") 'sbt-hydra)
-      (spacemacs/declare-prefix-for-mode 'scala-ts-mode "mb" "sbt")
-      (spacemacs/declare-prefix-for-mode 'scala-ts-mode "mg" "goto")
-      (evil-define-key 'normal scala-ts-mode-map "J" 'spacemacs/scala-join-line)
-      (add-hook 'scala-ts-mode-hook 'lsp)
-      (add-hook 'scala-ts-mode-hook 'dap-mode)
-      (spacemacs/set-leader-keys-for-major-mode 'scala-ts-mode
-        "b." 'sbt-hydra
-        "bb" 'sbt-command
-        "bc" #'spacemacs/scala-sbt-compile
-        "bt" #'spacemacs/scala-sbt-test
-        "bI" #'spacemacs/scala-sbt-compile-it
-        "bT" #'spacemacs/scala-sbt-compile-test
-        "b=" #'spacemacs/scala-sbt-scalafmt-all)
       ))
 
   (eval-after-load 'sbt-mode '(define-key comint-mode-map (kbd "<f5>") 'sbt-hydra))
