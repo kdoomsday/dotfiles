@@ -112,6 +112,7 @@ This function should only modify configuration layer settings."
 
      ;; My own layers
      ;; my-ellama
+     agent-shell
      compleseus-plus
      scala-extras
      ;; tabbar
