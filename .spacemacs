@@ -98,7 +98,7 @@ This function should only modify configuration layer settings."
      tree-sitter
      (unicode-fonts :variables unicode-fonts-enable-ligatures t)
      (spell-checking :variables
-                     spell-checking-enable-by-default nil
+                     spell-checking-enable-by-default t
                      enable-flyspell-auto-completion t)
      syntax-checking
      (version-control :variables
@@ -748,6 +748,9 @@ before packages are loaded."
   (global-set-key (kbd "C-<") 'evil-numbers/dec-at-pt)
 
   (global-set-key (kbd "C-SPC") 'company-complete)
+
+  ;; Dictionary
+  (ispell-hunspell-add-multi-dic "es_VE,en_US")
 
   ;; Compleseus configurations
   (setq which-key-use-C-h-commands t) ;; Enable paging commands for which key
