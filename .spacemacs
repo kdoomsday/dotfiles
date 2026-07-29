@@ -752,6 +752,7 @@ before packages are loaded."
 
   ;; Dictionary
   (ispell-hunspell-add-multi-dic "es_VE,en_US")
+  (setq ispell-dictionary "es_VE,en_US")
 
   ;; Compleseus configurations
   (setq which-key-use-C-h-commands t) ;; Enable paging commands for which key
