@@ -765,11 +765,6 @@ before packages are loaded."
   ;; Multicursor with the mouse
   (global-set-key [M-mouse-2] 'my/makeCursorAtPoint)
 
-  ;; Use scala-ts-mode instead of scala-mode
-  ;; TODO This is wrong because it happens after scala-mode and I need it before
-  (with-eval-after-load 'scala-mode
-    (setq auto-mode-alist (rassq-delete-all 'scala-mode auto-mode-alist)))
-
   ;; Scala bindings
   (with-eval-after-load 'scala-ts-mode
     (progn
