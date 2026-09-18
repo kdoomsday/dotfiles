@@ -301,8 +301,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts. This setting has no effect when
-   ;; running Emacs in terminal. The font set here will be used for default and
-   ;; fixed-pitch faces. The `:size' can be specified as
+   ;; running Emacs in terminal. The font set here will be used for `default' and
+   ;; `fixed-pitch' faces. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Fira Code"
@@ -391,7 +391,6 @@ It should only modify the values of Spacemacs settings."
    ;; `top-center', `bottom-center', `top-left-corner', `top-right-corner',
    ;; `top-right-corner', `bottom-left-corner' or `bottom-right-corner'
    ;; (default 'bottom)
-   ;; dotspacemacs-which-key-position 'bottom
    dotspacemacs-which-key-position '(posframe . bottom-center)
 
    ;; Control where `switch-to-buffer' displays the buffer. If nil,
@@ -922,10 +921,9 @@ before packages are loaded."
     (exec-path-from-shell-initialize))
 
 
-  ;; Fix ANSI colors in current buffer
   ;; Workaround while I figure out a way to make it automatic
   (defun my/fix-ansi ()
-    "Apply ANSI colors to the *Org Babel Error Output* buffer."
+    "Fix ANSI colors in current buffer or region"
     (interactive)
     (ansi-color-apply-on-region (point-min) (point-max) t))
   )
