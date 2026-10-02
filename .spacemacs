@@ -98,7 +98,7 @@ This function should only modify configuration layer settings."
      tree-sitter
      (unicode-fonts :variables unicode-fonts-enable-ligatures t)
      (spell-checking :variables
-                     spell-checking-enable-by-default t
+                     spell-checking-enable-by-default nil
                      enable-flyspell-auto-completion t)
      syntax-checking
      (version-control :variables
