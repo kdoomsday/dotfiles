@@ -755,8 +755,9 @@ before packages are loaded."
   (global-set-key (kbd "C-SPC") 'company-complete)
 
   ;; Dictionary
-  (ispell-hunspell-add-multi-dic "es_VE,en_US")
-  (setq ispell-dictionary "es_VE,en_US")
+  ;; TODO need to make this depend on having spell loaded or it errors out
+  ;; (ispell-hunspell-add-multi-dic "es_VE,en_US")
+  ;; (setq ispell-dictionary "es_VE,en_US")
 
   ;; Compleseus configurations
   (setq which-key-use-C-h-commands t) ;; Enable paging commands for which key
